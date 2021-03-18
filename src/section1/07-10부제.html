@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, arr) {
+                // 일의 자리 숫자와 날짜의 일의 자리 숫자가 일치하면 해당 자동차의 운행을 금지한다.
+                const answer = []; // 배열에 안 담고 count만 해도 된다.
+                for (const car of arr) {
+                    if (car % 10 === n) {
+                        answer.push(car);
+                    }
+                }
+                return answer.length;
+            }
+
+            console.log(`위반한 차량: ${solution(3, [25, 23, 11, 47, 53, 17, 33])}대`);
+            console.log(`위반한 차량: ${solution(0, [12, 20, 54, 30, 87, 91, 30])}대`);
+        </script>
+    </body>
+</html>
