@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arg) {
+                // const sentence = arg.split('');
+                // return sentence.filter((str) => str >= 'A' && str <= 'Z');
+
+                // #2. 선생님 방법
+                let answer = 0;
+                for (let x of arg) {
+                    // let num = x.charCodeAt(); // 아스키코드
+                    // if (num >= 65 && num <= 90) answer++;
+                    // console.log(num);
+                    if (x === x.toUpperCase()) answer++;
+                }
+                return answer;
+            }
+
+            console.log(solution('KoreaTimeGood'));
+        </script>
+    </body>
+</html>
