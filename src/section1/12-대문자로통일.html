@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arg) {
+                // return arg.toUpperCase();
+
+                let answer = '';
+                for (let x of arg) {
+                    let num = x.charCodeAt();
+                    if (num >= 97 && num <= 122) {
+                        // String.fromCharCode 메서드 주목😐...
+                        answer += String.fromCharCode(num - 32);
+                    } else {
+                        answer += x;
+                    }
+                    // 일반적인 방법
+                    // if (x === x.toLowerCase()) {
+                    //     answer += x.toUpperCase();
+                    // } else {
+                    //     answer += x;
+                    // }
+                }
+                return answer;
+            }
+
+            console.log(solution('ItisTimeToStudy'));
+        </script>
+    </body>
+</html>
