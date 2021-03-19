@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(sentence, str) {
+                // #1. ES6
+                // const strings = sentence.split('') || [];
+                // return strings.filter((s) => s === str).length;
+
+                // #2. Legacy
+                let answer = 0;
+                for (const s of sentence) {
+                    if (s === str) answer++;
+                }
+
+                // #3. 선생님 방법 (내장함수)
+                answer = sentence.split(str).length - 1;
+                return answer;
+            }
+
+            console.log(solution('COMPUTERPROGRAMMING', 'R'));
+        </script>
+    </body>
+</html>
