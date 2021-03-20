@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arg) {
+                // const arr = [];
+                // arg.split('').reduce((result, str) => {
+                //     const code = str.charCodeAt();
+                //     arr.push(code >= 97 ? code - 32 : code + 32);
+                // }, '');
+                // return arr.map((num) => String.fromCharCode(num)).join('');
+                // #2. 선생님 답안
+                let answer = '';
+                for (let x of arg) {
+                    if (x === x.toUpperCase()) answer += x.toLowerCase();
+                    else answer += x.toUpperCase();
+                }
+                return answer;
+            }
+
+            console.log(solution('StuDY'));
+        </script>
+    </body>
+</html>
