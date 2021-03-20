@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                // #1. 배열 메서드
+                //   return arr.reduce((result, str) => {
+                //     if (!result.includes(str)) {
+                //       result.push(str);
+                //     }
+                //     return result;
+                //   }, []);
+
+                // #2. Set
+                // let set = new Set();
+                // arr.forEach((str) => {
+                //     set.add(str);
+                // });
+                // const result = [];
+                // set.forEach((s) => result.push(s));
+                // return result;
+
+                // 3. 선생님 방식 (배열에서 제공하는 indexOf 메서드)
+                let answer;
+                // console.log(arr.indexOf('student'));
+                answer = arr.filter((v, i) => {
+                    // console.log(v, i);
+                    if (arr.indexOf(v) === i) return v;
+                });
+                return answer;
+            }
+
+            console.log(solution(['good', 'time', 'good', 'time', 'student']));
+        </script>
+    </body>
+</html>
