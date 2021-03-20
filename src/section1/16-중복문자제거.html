@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str) {
+                // #1. 배열 내장 메서드 이용하기
+                //   return str
+                //     .split('')
+                //     .reduce((result, s) => {
+                //       if (!result.includes(s)) result.push(s);
+                //       return result;
+                //     }, [])
+                //     .join('');
+
+                // #2. Set 개념 이용하기
+                // const set = new Set();
+                // str.split('').forEach((str) => set.add(str));
+                // const result = [];
+                // for (const value of set) {
+                //     result.push(value);
+                // }
+                // return result.join('');
+
+                // #3. 선생님 방식 (indexOf를 이용하여 풀어보기)
+                let answer = '';
+                for (let i = 0; i < str.length; i++) {
+                    // console.log(str[i], i, str.indexOf(str[i]));
+                    if (str.indexOf(str[i] === i)) answer += str[i];
+                }
+                return answer;
+            }
+
+            console.log(solution('ksekkset'));
+        </script>
+    </body>
+</html>
