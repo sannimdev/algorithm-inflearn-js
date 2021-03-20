@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                // const result = arr
+                //     .map((str) => ({ value: str, length: str.length }))
+                //     .sort((a, b) => b.length - a.length);
+                // return result[0].value;
+
+                // #2. 선생님 방식
+                let answer,
+                    max = Number.MIN_SAFE_INTEGER;
+                for (let x of arr) {
+                    if (x.length > max) {
+                        max = x.length;
+                        answer = x;
+                    }
+                }
+                return answer;
+            }
+
+            let str = ['teacher', 'time', 'student', 'beautiful', 'good'];
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
