@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                // #1. 처음 생각한 방법
+                // // 순위판
+                // const result = arr.map((n) => 1);
+                // // 내림차순 정렬 (중복제거)
+                // const rank = arr.reduce(
+                //     (result, num) => (!result.includes(num) ? [...result, num] : result),
+                //     []
+                // );
+                // rank.sort((a, b) => b - a);
+                // // 순위 매기기
+                // let sameCount = 0;
+                // rank.forEach((score) => {
+                //     // 동점자 구하기
+                //     sameCount = arr.filter((n) => n === score).length - 1;
+                //     for (let i = 0; i < arr.length; i++) {
+                //         // console.log(arr, result, 'score', score);
+                //         if (arr[i] < score) {
+                //             result[i] += 1 + sameCount;
+                //         }
+                //     }
+                // });
+                // return result;
+
+                // #2. 선생님 강의 힌트 (헐... 이게 더 쉽게 풀리네;;)
+                // 어차피 반복문을 이중으로 돌려야 한다면 이게 더 효율적이지...
+                const answer = arr.map(() => 1);
+                // const 이렇게도가능 = Array.from({ length: arr.length }, () => 1);
+                // console.log('====>', 이렇게도가능);
+                for (let i = 0; i < arr.length; i++) {
+                    for (let j = 0; j < arr.length; j++) {
+                        if (arr[i] < arr[j]) {
+                            answer[i] += 1;
+                        }
+                    }
+                }
+                return answer;
+            }
+
+            console.log(solution([87, 89, 92, 100, 76]));
+            console.log(solution([92, 92, 92, 92, 87, 85, 75, 75, 60]));
+        </script>
+    </body>
+</html>
