@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                let visibleStudents = [];
+                visibleStudents.push(arr[0]); // 첫 번째 학생은 무조건 보일 거고...
+                let maxHeight = arr[0];
+                for (let i = 1; i < arr.length; i++) {
+                    //앞에 있는 학생'들'보다 키가 커야 보인다.
+                    if (maxHeight < arr[i]) {
+                        visibleStudents.push(arr[i]);
+                        maxHeight = arr[i];
+                    }
+                }
+                return visibleStudents.length;
+            }
+
+            console.log(solution([130, 135, 148, 140, 145, 150, 150, 153]));
+        </script>
+    </body>
+</html>
