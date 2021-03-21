@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                // #1. 내 방식
+                // let sum = 0;
+                // let combo = 0;
+                // for (const current of arr) {
+                //     sum += current + current * combo;
+                //     // 가산점 처리
+                //     if (current) combo += 1;
+                //     else combo = 0;
+                // }
+                // return sum;
+
+                // #2. 선생님 방식
+                let answer = 0,
+                    cnt = 0;
+                for (let x of arr) {
+                    if (x === 1) {
+                        cnt++;
+                        answer += cnt;
+                    } else cnt = 0;
+                }
+                return answer;
+            }
+
+            console.log(solution([1, 0, 1, 1, 1, 0, 0, 1, 1, 0]));
+        </script>
+    </body>
+</html>
