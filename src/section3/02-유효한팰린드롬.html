@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // 유효한 팰린드롬
+            function solution(str) {
+                const realString = str.replace(/[^a-zA-Z]/g, '').toLowerCase();
+                return realString === realString.split('').reverse().join('') ? 'YES' : 'NO';
+            }
+
+            let str = 'found7, time: study; Yduts; emit, 7Dnuof';
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
