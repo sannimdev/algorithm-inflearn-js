@@ -6,25 +6,35 @@
     <body>
         <script>
             function solution(arr) {
-                let peak = 0;
-                for (let i = 0; i < arr.length; i++) {
-                    for (let j = 0; j < arr.length; j++) {
-                        // 가장자리는 0으로 초기화되었다고 가정한다.
-                        isBiggest(arr, i, j) && peak++;
+                let answer = 0;
+                let n = arr.length;
+                // 상 우 하 좌 (시계방향) k포문 3중포문...
+                // 이런 접근법도 알아둬야겠다.
+                let dx = [-1, 0, 1, 0]; //행 offset
+                let dy = [0, 1, 0, -1]; //열 offset
+
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j < n; j++) {
+                        let flag = 1;
+                        for (let k = 0; k < 4; k++) {
+                            let nx = i + dx[k];
+                            let ny = j + dy[k];
+                            if (
+                                nx >= 0 &&
+                                nx < n &&
+                                ny >= 0 &&
+                                ny < n &&
+                                arr[nx][ny] >= arr[i][j]
+                            ) {
+                                flag = 0;
+                                break;
+                            }
+                        }
+                        if (flag) answer++; // 봉우리인 경우 카운트 증가하기
                     }
                 }
-                return peak;
-            }
 
-            function isBiggest(arr, x, y) {
-                // 상, 하, 좌, 우 둘러보기
-                const self = arr[x][y];
-                // 자바스크립트의 유연성.... 와...😋
-                const top = arr[x][y - 1] ? arr[x][y - 1] : 0;
-                const left = arr[x - 1] ? arr[x - 1][y] : 0;
-                const right = arr[x + 1] ? arr[x + 1][y] : 0;
-                const bottom = arr[x][y + 1] ? arr[x][y + 1] : 0;
-                return self > Math.max(...[top, left, right, bottom]);
+                return answer;
             }
 
             let arr = [
