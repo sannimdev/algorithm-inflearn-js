@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // 회문 문자열
+            function solution(str) {
+                const result = str.toLowerCase() === str.toLowerCase().split('').reverse().join('');
+                return result ? 'YES' : 'NO';
+            }
+
+            let str = 'gooG';
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
