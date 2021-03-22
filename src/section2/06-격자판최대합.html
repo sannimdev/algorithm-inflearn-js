@@ -6,28 +6,51 @@
     <body>
         <script>
             function solution(arr) {
-                const row = arr.map(() => 0);
-                const column = arr.map(() => 0);
-                let slash = 0;
-                let backSlash = 0;
-                for (let i = 0; i < arr.length; i++) {
-                    for (let j = 0; j < arr.length; j++) {
-                        column[i] += arr[i][j];
-                        row[i] += arr[j][i];
+                let answer = Number.MIN_SAFE_INTEGER;
+                let n = arr.length;
+                let sum1 = (sum2 = 0);
+                // STEP1. 일직선 구하기
+                for (let i = 0; i < n; i++) {
+                    sum1 = sum2 = 0;
+                    for (let j = 0; j < n; j++) {
+                        sum1 += arr[i][j]; // 행 탐색
+                        sum2 += arr[j][i]; // 열 탐색
                     }
-                    slash += arr[i][i];
-                    backSlash += arr[arr.length - 1 - i][i];
+                    //최댓값 처리
+                    answer = Math.max(answer, sum1, sum2);
                 }
-                // 각 행, 열, 대각선의 합 중 큰 것만 합산
-                const rowMax = getMaxFromArray(row);
-                const columnMax = getMaxFromArray(column);
-                const slashMax = getMaxFromArray([slash, backSlash]);
-                return getMaxFromArray([rowMax, columnMax, slashMax]); //155
-            }
+                // STEP2. 대각선 구하기
+                sum1 = sum2 = 0;
+                for (let i = 0; i < n; i++) {
+                    sum1 += arr[i][i];
+                    sum2 += arr[i][n - i - 1];
+                }
+                answer = Math.max(answer, sum1, sum2);
+                return answer;
 
-            function getMaxFromArray(arr) {
-                const sorted = arr.sort((a, b) => b - a);
-                return sorted[0];
+                //     const row = arr.map(() => 0);
+                //     const column = arr.map(() => 0);
+                //     let slash = 0;
+                //     let backSlash = 0;
+                //     for (let i = 0; i < arr.length; i++) {
+                //         for (let j = 0; j < arr.length; j++) {
+                //             column[i] += arr[i][j];
+                //             row[i] += arr[j][i];
+                //         }
+                //         slash += arr[i][i];
+                //         backSlash += arr[arr.length - 1 - i][i];
+                //     }
+                //     // 각 행, 열, 대각선의 합 중 큰 것만 합산
+                // 😱 Math.max 메서드를 사용해도 됐는데 굳이...?
+                //     const rowMax = getMaxFromArray(row);
+                //     const columnMax = getMaxFromArray(column);
+                //     const slashMax = getMaxFromArray([slash, backSlash]);
+                //     return getMaxFromArray([rowMax, columnMax, slashMax]); //155
+                // }
+                // function getMaxFromArray(arr) {
+                //     const sorted = arr.sort((a, b) => b - a);
+                //     return sorted[0];
+                // }
             }
 
             let arr = [
