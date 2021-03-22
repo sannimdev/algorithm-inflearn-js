@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // 회문 문자열
+            function solution(str) {
+                // #1.  문자열을 순회하면서 대칭인지 확인하기
+                // => 홀수일 때는 중앙에 있는 문자는 단독이므로 검사할 필요가 없다.
+                // 문제에서 reverse 함수를 사용을 제한할 경우를 대비하여 이 기법도 익혀두도록 한다. 🤔
+                // let answer = 'YES';
+                // str = str.toLowerCase();
+                // let len = str.length;
+                // for (let i = 0; i < Math.floor(len / 2); i++) {
+                //     // 어차피 정수만 순회할 거니까(i+=1) 소숫점이어도 상관은 없지만 Math.floor 사용해 보았음.
+                //     if (str[i] !== str[len - i - 1]) {
+                //         answer = 'NO';
+                //         break;
+                //     }
+                // }
+                // return answer;
+                // #2. split, reverse 사용하기
+                let answer = 'YES';
+                str = str.toLowerCase();
+                if (str !== str.split('').reverse().join('')) return 'NO';
+                return answer;
+
+                // #3. 내 답안
+                // const result = str.toLowerCase() === str.toLowerCase().split('').reverse().join('');
+                // return result ? 'YES' : 'NO';
+            }
+
+            let str = 'gooG';
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
