@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                let peak = 0;
+                for (let i = 0; i < arr.length; i++) {
+                    for (let j = 0; j < arr.length; j++) {
+                        // 가장자리는 0으로 초기화되었다고 가정한다.
+                        isBiggest(arr, i, j) && peak++;
+                    }
+                }
+                return peak;
+            }
+
+            function isBiggest(arr, x, y) {
+                // 상, 하, 좌, 우 둘러보기
+                const self = arr[x][y];
+                // 자바스크립트의 유연성.... 와...😋
+                const top = arr[x][y - 1] ? arr[x][y - 1] : 0;
+                const left = arr[x - 1] ? arr[x - 1][y] : 0;
+                const right = arr[x + 1] ? arr[x + 1][y] : 0;
+                const bottom = arr[x][y + 1] ? arr[x][y + 1] : 0;
+                return self > Math.max(...[top, left, right, bottom]);
+            }
+
+            let arr = [
+                [5, 3, 7, 2, 3],
+                [3, 7, 1, 6, 1],
+                [7, 2, 5, 3, 4],
+                [4, 3, 6, 4, 1],
+                [8, 7, 3, 5, 2],
+            ];
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
