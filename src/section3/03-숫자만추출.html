@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str) {
+                // replace를 사용하지 못하는 경우
+                // let answer = '';
+                // for (let x of str) {
+                //     if (!isNaN(x)) answer += x;
+                // }
+                // return parseInt(answer);
+                // parseInt도 사용하지 못하는 경우
+                let answer = 0;
+                for (let x of str) {
+                    if (!isNaN(x)) answer = answer * 10 + Number(x);
+                }
+                return answer;
+                // return parseInt(str.replace(/[^0-9]/g, ''));
+            }
+
+            console.log(solution('g0en2T0s8eSoft'));
+            console.log(solution('tge0a1h205er'));
+        </script>
+    </body>
+</html>
