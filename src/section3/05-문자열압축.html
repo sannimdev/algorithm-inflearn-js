@@ -6,23 +6,18 @@
     <body>
         <script>
             function solution(str) {
-                const deduplicated = str
-                    .split('')
-                    .reduce(
-                        (result, char) => (!result.includes(char) ? [...result, char] : result),
-                        []
-                    );
-                const count = deduplicated.reduce(
-                    (result, char) => ({ ...result, [char]: str.split(char).length - 1 }),
-                    {}
-                );
-                let result = '';
-                for (let k in count) {
-                    if (Object.prototype.hasOwnProperty.call(count, k)) {
-                        result += k + (count[k] > 1 ? count[k] : '');
+                let answer = '';
+                let count = 1;
+                str += ' '; // 마지막 문자열을 비교하기 위해서
+                for (let i = 0; i < str.length - 1; i++) {
+                    if (str[i] === str[i + 1]) {
+                        count += 1;
+                    } else {
+                        answer += `${str[i]}${count === 1 ? '' : count}`;
+                        count = 1;
                     }
                 }
-                return result;
+                return answer;
             }
 
             console.log(solution('KKHSSSSSSSE')); // K2HS7E
