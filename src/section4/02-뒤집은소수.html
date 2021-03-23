@@ -6,16 +6,23 @@
     <body>
         <script>
             function solution(arr) {
-                return arr.map((n) => revert(n)).filter((n) => isDecimal(n));
+                let answer = [];
+                for (let x of arr) {
+                    let res = 0;
+                    while (x) {
+                        let t = x % 10;
+                        res = res * 10 + t;
+                        x = parseInt(x / 10);
+                    }
+                    if (isPrime(res)) answer.push(res);
+                }
+                return answer;
             }
 
-            function revert(n) {
-                return parseInt(`${n}`.split('').reverse().join(''));
-            }
-
-            function isDecimal(n) {
-                if (n < 2) return false;
-                for (let i = 2; i < n; i++) {
+            function isPrime(n) {
+                if (n === 1) return false;
+                // 소수 제곱근까지만 돌려도 효율적이 된다. (절반까지 도는 것이 가장 일반적)
+                for (let i = 2; i <= Math.floor(Math.sqrt(n)); i++) {
                     if (n % i === 0) return false;
                 }
                 return true;
