@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str, char) {
+                const arr = str.split('');
+                // char가 있는 위치 모조리 반환
+                const positions = arr
+                    .map((c, index) => (c === char ? index : -1))
+                    .filter((c) => c > 0);
+                return arr.reduce((acc, current, index) => {
+                    if (positions.includes(current)) {
+                        // 기준 문자열은 거리 0
+                        return [...acc, 0];
+                    }
+                    // 나머지 문자열 거리 정하기
+                    return [...acc, Math.min(...positions.map((n) => Math.abs(index - n)))];
+                }, []);
+            }
+
+            let str = 'teachermode';
+            //t e a c h e r m o d e
+            //1 0 1 2 1 0 1 2 2 1 0
+            console.log(solution(str, 'e').join(' '));
+        </script>
+    </body>
+</html>
