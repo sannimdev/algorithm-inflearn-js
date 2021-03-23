@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str) {
+                const deduplicated = str
+                    .split('')
+                    .reduce(
+                        (result, char) => (!result.includes(char) ? [...result, char] : result),
+                        []
+                    );
+                const count = deduplicated.reduce(
+                    (result, char) => ({ ...result, [char]: str.split(char).length - 1 }),
+                    {}
+                );
+                let result = '';
+                for (let k in count) {
+                    if (Object.prototype.hasOwnProperty.call(count, k)) {
+                        result += k + (count[k] > 1 ? count[k] : '');
+                    }
+                }
+                return result;
+            }
+
+            console.log(solution('KKHSSSSSSSE')); // K2HS7E
+        </script>
+    </body>
+</html>
