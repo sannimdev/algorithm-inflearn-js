@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str, char) {
+                let p = 1000;
+                // #1. 👈 왼쪽으로부터 떨어진거리
+                const answer = [];
+                for (let i = 0; i < str.length; i++) {
+                    p = str[i] === char ? 0 : p + 1;
+                    answer.push(p);
+                }
+                p = 1000;
+                // #2. 👉 오른쪽으로부터 떨어진 거리
+                for (let i = str.length - 1; i >= 0; i--) {
+                    p = str[i] === char ? 0 : p + 1;
+                    answer[i] = Math.min(answer[i], p);
+                }
+                return answer;
+            }
+
+            let str = 'teachermode';
+            //t e a c h e r m o d e
+            //1 0 1 2 1 0 1 2 2 1 0
+            console.log(solution(str, 'e'));
+        </script>
+    </body>
+</html>
