@@ -5,38 +5,32 @@
     </head>
     <body>
         <script>
-            function solution(budget, arr) {
-                let wallet = budget;
-                let count = 0;
-                const sorted = arr.concat();
-                sorted.sort((a, b) => (a[0] + a[1] > b[0] + b[1] ? 1 : -1));
-                for (const item of sorted) {
-                    const price = item[0] + item[1];
-                    if (wallet - price >= 0) {
-                        // console.log(wallet, item, wallet - price, '구매');
-                        wallet -= price;
-                        count += 1;
-                    } else {
-                        break;
-                    }
-                }
-                // 반값 할인 사기
-                sorted.splice(0, count); // 이미 위에서 구매한 항목 삭제하기 (어차피 정렬되어 있을 테니까 순차적으로 삭제)
-                // console.log(sorted);
-                sorted.sort((a, b) => (a[0] / 2 + a[1] > b[0] / 2 + b[1] ? 1 : -1));
-                for (const item of sorted) {
-                    const saled = Math.floor(item[0] / 2) + item[1];
-                    // console.log('잔액이 이제 모자라...', wallet, '이제 ', saled, '사야 돼', '반 값 할인', Math.floor(item[0] / 2) + item[1], item);
-                    // 할인해서 구매 시도하기
-                    if (wallet - saled >= 0) {
-                        // console.log(wallet, item, wallet - saled, '할인 구매');
-                        wallet -= saled;
-                        count += 1;
-                        break;
-                    }
-                }
+            /*
+            STEP1. 총 비용 순으로 정렬하기
+            STEP2. 50% 할인쿠폰은 지불할 수 있는 최후에 적용하기
+            그런데 이 문제는 브루트포스(완전탐색)이므로 모든 경우를 다 고려하면 된다.
+            */
+            function solution(m, product) {
+                let answer = 0;
+                let n = product.length;
+                // STPE1. 총 비용 순으로 정렬하기
+                product.sort((a, b) => a[0] + a[1] - (b[0] + b[1]));
 
-                return count;
+                for (let i = 0; i < n; i++) {
+                    let money = m - (product[i][0] / 2 + product[i][1]); // 상품가격은 짝수라고 가정
+                    let cnt = 1;
+                    for (let j = 0; j < n; j++) {
+                        if (i === j) continue;
+                        if (product[j][0] + product[j][1] <= money) {
+                            money -= product[j][0] + product[j][1];
+                            cnt++;
+                        } else {
+                            break;
+                        }
+                    }
+                    answer = Math.max(answer, cnt);
+                }
+                return answer;
             }
 
             let arr = [
