@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(budget, arr) {
+                let wallet = budget;
+                let count = 0;
+                const sorted = arr.concat();
+                sorted.sort((a, b) => (a[0] + a[1] > b[0] + b[1] ? 1 : -1));
+                for (const item of sorted) {
+                    const price = item[0] + item[1];
+                    if (wallet - price >= 0) {
+                        // console.log(wallet, item, wallet - price, '구매');
+                        wallet -= price;
+                        count += 1;
+                    } else {
+                        break;
+                    }
+                }
+                // 반값 할인 사기
+                sorted.splice(0, count); // 이미 위에서 구매한 항목 삭제하기 (어차피 정렬되어 있을 테니까 순차적으로 삭제)
+                // console.log(sorted);
+                sorted.sort((a, b) => (a[0] / 2 + a[1] > b[0] / 2 + b[1] ? 1 : -1));
+                for (const item of sorted) {
+                    const saled = Math.floor(item[0] / 2) + item[1];
+                    // console.log('잔액이 이제 모자라...', wallet, '이제 ', saled, '사야 돼', '반 값 할인', Math.floor(item[0] / 2) + item[1], item);
+                    // 할인해서 구매 시도하기
+                    if (wallet - saled >= 0) {
+                        // console.log(wallet, item, wallet - saled, '할인 구매');
+                        wallet -= saled;
+                        count += 1;
+                        break;
+                    }
+                }
+
+                return count;
+            }
+
+            let arr = [
+                [6, 6],
+                [2, 2],
+                [4, 3],
+                [4, 5],
+                [10, 3],
+            ];
+            console.log(solution(28, arr));
+        </script>
+    </body>
+</html>
