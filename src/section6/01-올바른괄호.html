@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // const OPEN = '(';
+            const CLOSE = ')';
+
+            function solution(str) {
+                let stack = [];
+                for (let s of str) {
+                    if (s === OPEN) {
+                        stack.push(s);
+                    } else if (s === CLOSE) {
+                        if (stack.length === 0) {
+                            return 'NO'; // 처음부터 닫는 괄호가 나올 수도 있지
+                        }
+                        stack.pop();
+                    }
+                }
+                // console.log(stack);
+                return stack.length === 0 ? 'YES' : 'NO';
+            }
+
+            let a = '(()(()))(()';
+            console.log(solution(a));
+            // console.log(solution('()'));
+            // console.log(solution('(()(()))'));
+        </script>
+    </body>
+</html>
