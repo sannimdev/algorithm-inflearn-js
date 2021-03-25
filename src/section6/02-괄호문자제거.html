@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            const OPEN = '(';
+            const CLOSE = ')';
+
+            function solution(str) {
+                let answer;
+                let stack = [];
+                for (let x of str) {
+                    if (x === CLOSE) {
+                        // 🙄 이게 사실 출제 의도이자 하이라이트였을 텐데...
+                        // 괄호 (가 나올 때까지 계속 스택에서 꺼내기
+                        while (stack.pop() !== OPEN); // <-- 중괄호 안 써도 먹는구나.
+                    } else {
+                        stack.push(x);
+                    }
+                }
+                answer = stack.join('');
+                return answer;
+            }
+
+            let str = '(A(BC)D)EF(G(H)(IJ)K)LM(N)';
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
