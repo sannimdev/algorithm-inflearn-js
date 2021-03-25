@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            const OPEN = '(';
+            const CLOSE = ')';
+
+            function solution(str) {
+              // console.log(str, '\n==========');
+              let stack = [];
+              let opened = []; // 괄호가 열리면 해당 시점의 index 삽입. 없으면 -1
+              for (let i = 0; i < str.length; i++) {
+                // console.log(opened);
+                const s = str[i];
+                if (s === OPEN) {
+                  // console.log(i, '================= 23', '걸림');
+                  opened.unshift(stack.length);
+                } else if (s === CLOSE) {
+                  // 괄호가 닫힌 경우엔 문자열을 같이 빼낸다
+                  const start = opened.shift();
+                  stack = stack.filter((_, index) => index < start);
+                  // console.log(i, '======================> ', start);
+                  continue;
+                }
+                // 최종 스택에 삽입함
+                stack.push(s);
+                // console.log(i, s, '=>', stack.join(''));
+              }
+              return stack.join('');
+        </script>
+    </body>
+</html>
