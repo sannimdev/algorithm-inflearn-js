@@ -9,27 +9,23 @@
             const CLOSE = ')';
 
             function solution(str) {
-              // console.log(str, '\n==========');
-              let stack = [];
-              let opened = []; // 괄호가 열리면 해당 시점의 index 삽입. 없으면 -1
-              for (let i = 0; i < str.length; i++) {
-                // console.log(opened);
-                const s = str[i];
-                if (s === OPEN) {
-                  // console.log(i, '================= 23', '걸림');
-                  opened.unshift(stack.length);
-                } else if (s === CLOSE) {
-                  // 괄호가 닫힌 경우엔 문자열을 같이 빼낸다
-                  const start = opened.shift();
-                  stack = stack.filter((_, index) => index < start);
-                  // console.log(i, '======================> ', start);
-                  continue;
+                let answer;
+                let stack = [];
+                for (let x of str) {
+                    if (x === CLOSE) {
+                        // 🙄 이게 사실 출제 의도이자 하이라이트였을 텐데...
+                        // 괄호 (가 나올 때까지 계속 스택에서 꺼내기
+                        while (stack.pop() !== OPEN); // <-- 중괄호 안 써도 먹는구나.
+                    } else {
+                        stack.push(x);
+                    }
                 }
-                // 최종 스택에 삽입함
-                stack.push(s);
-                // console.log(i, s, '=>', stack.join(''));
-              }
-              return stack.join('');
+                answer = stack.join('');
+                return answer;
+            }
+
+            let str = '(A(BC)D)EF(G(H)(IJ)K)LM(N)';
+            console.log(solution(str));
         </script>
     </body>
 </html>
