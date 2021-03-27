@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str) {
+                console.log(str, '...');
+                const math = ['+', '-', '*', '/'];
+                const stack = [];
+                for (let i = 0; i < str.length; i++) {
+                    const s = str[i];
+                    // console.log(s, math.includes(s));
+                    if (math.includes(s)) {
+                        // 사칙연산이 들어왔으면
+                        const latter = stack.pop();
+                        const former = stack.pop();
+                        stack.push(calculate(former + s + latter));
+                    } else {
+                        // 일반적인 숫자가 들어오면
+                        stack.push(s);
+                    }
+                }
+                return stack[0];
+            }
+
+            function calculate(arg) {
+                return new Function('return ' + arg)();
+            }
+
+            let str = '352+*9-';
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
