@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str) {
+                let answer;
+                const stack = [];
+                for (let x of str) {
+                    if (!isNaN(x)) {
+                        // 숫자만 필터링
+                        stack.push(Number(x));
+                    } else {
+                        // 연산자가 들어오는 경우
+                        let latter = stack.pop();
+                        let former = stack.pop();
+                        if (x === '+') stack.push(former + latter);
+                        else if (x === '-') stack.push(former - latter);
+                        else if (x === '*') stack.push(former * latter);
+                        else if (x === '/') stack.push(former / latter);
+                    }
+                }
+                answer = stack[0];
+                return answer;
+            }
+
+            let str = '352+*9-';
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
