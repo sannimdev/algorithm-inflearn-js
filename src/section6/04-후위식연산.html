@@ -6,27 +6,24 @@
     <body>
         <script>
             function solution(str) {
-                console.log(str, '...');
-                const math = ['+', '-', '*', '/'];
+                let answer;
                 const stack = [];
-                for (let i = 0; i < str.length; i++) {
-                    const s = str[i];
-                    // console.log(s, math.includes(s));
-                    if (math.includes(s)) {
-                        // 사칙연산이 들어왔으면
-                        const latter = stack.pop();
-                        const former = stack.pop();
-                        stack.push(calculate(former + s + latter));
+                for (let x of str) {
+                    if (!isNaN(x)) {
+                        // 숫자만 필터링
+                        stack.push(Number(x));
                     } else {
-                        // 일반적인 숫자가 들어오면
-                        stack.push(s);
+                        // 연산자가 들어오는 경우
+                        let latter = stack.pop();
+                        let former = stack.pop();
+                        if (x === '+') stack.push(former + latter);
+                        else if (x === '-') stack.push(former - latter);
+                        else if (x === '*') stack.push(former * latter);
+                        else if (x === '/') stack.push(former / latter);
                     }
                 }
-                return stack[0];
-            }
-
-            function calculate(arg) {
-                return new Function('return ' + arg)();
+                answer = stack[0];
+                return answer;
             }
 
             let str = '352+*9-';
