@@ -5,37 +5,28 @@
     </head>
     <body>
         <script>
-            const NONE = 0;
             function solution(board, moved) {
-                let basket = []; // 인형 장바구니 스택
-                const n = moved.length; // 크레인을 작동시킨 횟수
-                let disappeared = 0;
-                for (let x = 0; x < n; x++) {
-                    // moved 배열 한 바퀴 순회하면서 아이템 꺼내기
-                    const idx = moved[x] - 1;
-                    for (let y = 0; y < board.length; y++) {
-                        // board의 행 개수 만큼 순회하기
-                        let current;
-                        if (board[y][idx] && board[y][idx] !== NONE) {
-                            current = board[y][idx];
-                            board[y][idx] = 0;
-                            // console.log(moved[idx], '번index꺼내', '=>', current);
-                            // STEP1 인형 담기.
-                            basket.push(current);
-                            // STEP2. 인형 터뜨리기
-                            const latter = basket.pop();
-                            const former = basket.pop();
-                            if (latter && former && latter === former) {
-                                disappeared += 2;
-                            } else {
-                                basket.push(former, latter);
-                            }
+                let answer = 0;
+                let stack = [];
+
+                // 😅 엄청.. 짧게 끝나네...
+                moved.forEach((pos) => {
+                    for (let i = 0; i < board.length; i++) {
+                        if (board[i][pos - 1] !== 0) {
+                            let tmp = board[i][pos - 1]; // 현재 board에서 골라낸 인형
+                            board[i][pos - 1] = 0; // 뽑음처리
+                            // 바구니의 최상단과 비교하기
+                            if (tmp === stack[stack.length - 1]) {
+                                stack.pop(); // 터뜨리기
+                                answer += 2;
+                            } else stack.push(tmp);
+
                             break;
                         }
                     }
-                }
+                });
 
-                return disappeared;
+                return answer;
             }
 
             let a = [
