@@ -11,33 +11,21 @@
                     https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
                 */
                 let princes = Array.from({ length: n }, (_, idx) => idx + 1);
-                let i = -1;
-                let number = 1;
-                let debug = 0;
-                console.log(princes, '시작');
+                // "큐" 개념을 사용하여 다시 풀어보기
+                let index = 0;
+                let count = 1;
                 while (princes.length !== 1) {
-                    i = (i + 1) % princes.length;
-                    debug++;
-                    if (number++ === k) {
-                        // 탈락 당첨
-                        console.log(
-                            `당첨 ▶ ${princes[i]}번 왕자 아웃...\tnumber=${
-                                number - 1
-                            },\tprinces=[${princes}](${princes.length})`
-                        );
-                        princes = princes.filter((p) => p !== princes[i]);
-                        number = 1;
-                        i--;
+                    // 🙏러시안 룰렛.. 돌리는 느낌인데?
+                    let current = princes.shift();
+                    // 왕자가 한 명씩 외친다. 😂 걸린 왕자는 다시 큐에 못 들어간다.
+                    if (count === k) count = 1;
+                    else {
+                        count += 1;
+                        princes.push(current); // 😎 안 걸렸으니까 다시 줄세우기
                     }
-                    i > 0 &&
-                        console.log(
-                            `i=${i},\tnumber=${number - 1},\tprinces=[${princes}](${
-                                princes.length
-                            })`
-                        );
-                    if (debug === 50) break;
+                    index = (index + 1) % princes.length;
                 }
-                return princes;
+                return princes[0]; // 🙆‍♂️ 최종 승자 납시오...
             }
 
             console.log(solution(8, 3));
