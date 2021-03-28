@@ -6,26 +6,23 @@
     <body>
         <script>
             function solution(n, k) {
-                /*
-                    단순 반복문을 돌려 배열을 만드는 것보다 한 줄로 코드를 작성하고 싶어 방법이 있는지 검색해 보았음.
-                    https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
-                */
-                let princes = Array.from({ length: n }, (_, idx) => idx + 1);
-                // "큐" 개념을 사용하여 다시 풀어보기
-                let index = 0;
-                let count = 1;
-                while (princes.length !== 1) {
-                    // 🙏러시안 룰렛.. 돌리는 느낌인데?
-                    let current = princes.shift();
-                    // 왕자가 한 명씩 외친다. 😂 걸린 왕자는 다시 큐에 못 들어간다.
-                    if (count === k) count = 1;
-                    else {
-                        count += 1;
-                        princes.push(current); // 😎 안 걸렸으니까 다시 줄세우기
-                    }
-                    index = (index + 1) % princes.length;
+                let answer;
+                // Array.from({ length: n }); // length가 n인 유사배열객체가 생기기만 할 뿐이다.
+                let queue = Array.from(
+                    { length: n },
+                    (v /*유사배열객체의 내용(👉undefined)*/, i) => i + 1
+                );
+
+                while (queue.length) {
+                    // 죽음의 숫자 k 전까지 그냥 줄세우기
+                    for (let i = 1; i < k; i++) queue.push(queue.shift()); // 이렇게 한 줄로만 쓸 수도 있구나... 아...
+                    // i가 죽음의 숫자 k가 될 때 for문을 빠져나올 것이니까 이때는 quee에서 이 원소 제거하기
+                    queue.shift();
+                    // 최후의 승자만 큐에 살아남으면 답으로 작성하기
+                    if (queue.length === 1) answer = queue.shift();
                 }
-                return princes[0]; // 🙆‍♂️ 최종 승자 납시오...
+
+                return answer;
             }
 
             console.log(solution(8, 3));
