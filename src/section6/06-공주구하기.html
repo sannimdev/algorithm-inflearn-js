@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, k) {
+                /*
+                    단순 반복문을 돌려 배열을 만드는 것보다 한 줄로 코드를 작성하고 싶어 방법이 있는지 검색해 보았음.
+                    https://stackoverflow.com/questions/3746725/how-to-create-an-array-containing-1-n
+                */
+                let princes = Array.from({ length: n }, (_, idx) => idx + 1);
+                let i = -1;
+                let number = 1;
+                let debug = 0;
+                console.log(princes, '시작');
+                while (princes.length !== 1) {
+                    i = (i + 1) % princes.length;
+                    debug++;
+                    if (number++ === k) {
+                        // 탈락 당첨
+                        console.log(
+                            `당첨 ▶ ${princes[i]}번 왕자 아웃...\tnumber=${
+                                number - 1
+                            },\tprinces=[${princes}](${princes.length})`
+                        );
+                        princes = princes.filter((p) => p !== princes[i]);
+                        number = 1;
+                        i--;
+                    }
+                    i > 0 &&
+                        console.log(
+                            `i=${i},\tnumber=${number - 1},\tprinces=[${princes}](${
+                                princes.length
+                            })`
+                        );
+                    if (debug === 50) break;
+                }
+                return princes;
+            }
+
+            console.log(solution(8, 3));
+        </script>
+    </body>
+</html>
