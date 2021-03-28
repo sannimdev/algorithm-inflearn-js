@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(need, plan) {
+                let answer = 'YES';
+                // 필수과목
+                let queue = need.split('');
+                // console.log(queue);
+
+                for (let x of plan) {
+                    if (queue.includes(x)) {
+                        if (x !== queue.shift()) {
+                            return 'NO';
+                        }
+                    }
+                }
+                // console.log(queue);
+                // 필수과목이 하나가 부족한 경우를 고려
+                if (queue.length > 0) return 'NO';
+                return answer;
+            }
+
+            let a = 'CBA';
+            let b = 'CBDAGE';
+            // let b = 'CGEADB';
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
