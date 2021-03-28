@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(a, b) {
+                // ordered: 필수과목 및 순서, plan: 계획
+                const ordered = a.split('');
+                // 선택과목은 어차피 언제 듣든 문제와 상관없으므로 배제하기
+                const plan = b.split('').filter((x) => ordered.includes(x));
+                let answer = 'NO';
+
+                // STEP 1. 혹시라도 필수과목 개수가 하나라도 누락되면 NO
+                console.log(ordered, plan);
+                // 사실 while문에서 알아서 걸리겠지만, 예의상(?) 사전에 반복문에 진입하지 않도록 차단해준다.
+                if (ordered.length !== plan.length) return answer;
+
+                // STEP2. 필수과목 순서가 맞는지 따져보기
+                while (plan.length !== 0) {
+                    if (ordered.shift() !== plan.shift()) {
+                        return answer;
+                    }
+                }
+                answer = 'YES';
+                return answer;
+            }
+
+            let a = 'CBA';
+            let b = 'CBDAGE';
+            // let b = 'CGEADB';
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
