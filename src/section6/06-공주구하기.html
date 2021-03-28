@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, k) {
+                let answer;
+                // Array.from({ length: n }); // length가 n인 유사배열객체가 생기기만 할 뿐이다.
+                let queue = Array.from(
+                    { length: n },
+                    (v /*유사배열객체의 내용(👉undefined)*/, i) => i + 1
+                );
+
+                while (queue.length) {
+                    // 죽음의 숫자 k 전까지 그냥 줄세우기
+                    for (let i = 1; i < k; i++) queue.push(queue.shift()); // 이렇게 한 줄로만 쓸 수도 있구나... 아...
+                    // i가 죽음의 숫자 k가 될 때 for문을 빠져나올 것이니까 이때는 quee에서 이 원소 제거하기
+                    queue.shift();
+                    // 최후의 승자만 큐에 살아남으면 답으로 작성하기
+                    if (queue.length === 1) answer = queue.shift();
+                }
+
+                return answer;
+            }
+
+            console.log(solution(8, 3));
+        </script>
+    </body>
+</html>
