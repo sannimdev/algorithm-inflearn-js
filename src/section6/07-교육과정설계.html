@@ -5,25 +5,22 @@
     </head>
     <body>
         <script>
-            function solution(a, b) {
-                // ordered: 필수과목 및 순서, plan: 계획
-                const ordered = a.split('');
-                // 선택과목은 어차피 언제 듣든 문제와 상관없으므로 배제하기
-                const plan = b.split('').filter((x) => ordered.includes(x));
-                let answer = 'NO';
+            function solution(need, plan) {
+                let answer = 'YES';
+                // 필수과목
+                let queue = need.split('');
+                // console.log(queue);
 
-                // STEP 1. 혹시라도 필수과목 개수가 하나라도 누락되면 NO
-                console.log(ordered, plan);
-                // 사실 while문에서 알아서 걸리겠지만, 예의상(?) 사전에 반복문에 진입하지 않도록 차단해준다.
-                if (ordered.length !== plan.length) return answer;
-
-                // STEP2. 필수과목 순서가 맞는지 따져보기
-                while (plan.length !== 0) {
-                    if (ordered.shift() !== plan.shift()) {
-                        return answer;
+                for (let x of plan) {
+                    if (queue.includes(x)) {
+                        if (x !== queue.shift()) {
+                            return 'NO';
+                        }
                     }
                 }
-                answer = 'YES';
+                // console.log(queue);
+                // 필수과목이 하나가 부족한 경우를 고려
+                if (queue.length > 0) return 'NO';
                 return answer;
             }
 
