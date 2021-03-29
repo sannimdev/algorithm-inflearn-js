@@ -19,6 +19,15 @@
                     } else {
                         answer.push(b[bb++]);
                     }
+
+                    // 내가 놓친 부분...
+                    if (aa === a.length) {
+                        answer.push(...b.slice(bb, b.length));
+                        break;
+                    } else if (bb === b.length) {
+                        answer.push(...a.slice(aa, a.length));
+                        break;
+                    }
                 }
 
                 return answer;
