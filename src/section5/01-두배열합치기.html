@@ -13,23 +13,13 @@
                 let aa = 0;
                 let bb = 0;
 
-                while (aa + bb < total) {
-                    if (a[aa] < b[bb]) {
-                        answer.push(a[aa++]);
-                    } else {
-                        answer.push(b[bb++]);
-                    }
-
-                    // 내가 놓친 부분...
-                    if (aa === a.length) {
-                        answer.push(...b.slice(bb, b.length));
-                        break;
-                    } else if (bb === b.length) {
-                        answer.push(...a.slice(aa, a.length));
-                        break;
-                    }
+                while (aa < a.length && bb < b.length) {
+                    if (a[aa] < b[bb]) answer.push(a[aa++]);
+                    else answer.push(b[bb++]);
                 }
-
+                // 아... 반복문을 이렇게 쓰는 걸 많이 해봐야겠네...
+                while (aa < a.length) answer.push(a[aa++]);
+                while (bb < b.length) answer.push(b[bb++]);
                 return answer;
             }
 
