@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(a, b) {
+                // 투 포인터
+                const answer = [];
+                const total = a.length + b.length;
+                /* 두 개의 포인터 변수를 잡았다고 해서 투 포인터 알고리즘이다.*/
+                let aa = 0;
+                let bb = 0;
+
+                while (aa < a.length && bb < b.length) {
+                    if (a[aa] < b[bb]) answer.push(a[aa++]);
+                    else answer.push(b[bb++]);
+                }
+                // 아... 반복문을 이렇게 쓰는 걸 많이 해봐야겠네...
+                while (aa < a.length) answer.push(a[aa++]);
+                while (bb < b.length) answer.push(b[bb++]);
+                return answer;
+            }
+
+            let a = [1, 3, 5];
+            let b = [2, 3, 6, 7, 9];
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
