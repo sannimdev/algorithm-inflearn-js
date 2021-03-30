@@ -5,20 +5,22 @@
     </head>
     <body>
         <script>
-            function solution(a, arr) {
+            function solution(m, arr) {
                 const length = arr.length;
-                let count = 0;
-                for (let i = 0; i < length; i++) {
-                    let sum = 0;
-                    for (let j = i; j < length; j++) {
-                        sum += j;
-                        if (sum === a) {
-                            count++;
-                        }
-                        if (sum >= a) {
-                            break;
-                        }
-                    }
+                let lt = 0;
+                let rt = 0;
+                let sum = 0;
+                let count = 0; // 수열의 합이 m이 되는 경우
+
+                while (lt < arr.length && rt < arr.length) {
+                    if (sum === m) count++;
+                    if (sum >= m) sum -= arr[lt++];
+                    else sum += arr[rt++];
+                    // console.log(
+                    //     `sum=${sum}, arr[lt]=${arr[lt]}, arr[rt]=${arr[rt - 1]}, lt=${lt}, rt=${
+                    //         rt - 1
+                    //     }`
+                    // );
                 }
                 return count;
             }
