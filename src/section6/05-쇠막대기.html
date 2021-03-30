@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            const OPEN = '(';
+            const CLOSE = ')';
+            function solution(s) {
+                const stack = [];
+                let answer = 0;
+
+                for (let i = 0; i < s.length; i++) {
+                    if (s[i] === OPEN) stack.push(s[i]);
+                    else {
+                        stack.pop();
+                        // 닫는 괄호일 때
+                        if (s[i - 1] === OPEN) answer += stack.length;
+                        // 막대기의 의미일 경우
+                        else answer += 1;
+                    }
+                }
+                return [stack.join(''), answer];
+            }
+
+            let a = '()(((()())(())()))(())';
+            // let a = '(((()(()()))(())()))(()())';
+            console.log(solution(a));
+        </script>
+    </body>
+</html>
+
+( ( (()()) (()) () ) ) (()) ( ( ()() )) ()
