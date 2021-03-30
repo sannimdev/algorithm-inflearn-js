@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            const OPEN = '(';
+            const CLOSE = ')';
+            function solution(arr) {
+                const bars = [];
+                let answer = 0;
+
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i] === CLOSE) {
+                        // () 레이저면
+                        bars.pop();
+                        answer += bars.length;
+                    } else if (arr[i] === OPEN) {
+                        bars.push(arr[i]);
+                    }
+                }
+                return [bars.join(''), answer];
+            }
+
+            let a = '()(((()())(())()))(())';
+            // let a = '(((()(()()))(())()))(()())';
+            console.log(solution(a));
+        </script>
+    </body>
+</html>
+
+( ( (()()) (()) () ) ) (()) ( ( ()() )) ()
