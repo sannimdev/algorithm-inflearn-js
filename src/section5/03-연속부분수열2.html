@@ -6,27 +6,19 @@
     <body>
         <script>
             function solution(m, arr) {
-                const length = arr.length;
                 // 투 포인터 정의하기
-                let rt = (lt = 0);
-                let count = 0,
-                    sum = 0;
-
-                while (lt < length) {
-                    const current = arr.slice(lt, rt + 1);
-                    sum = current.reduce((result, value) => result + value, 0);
-                    console.log(current.join(','), '합:', sum);
-                    if (lt < length && rt < length && sum <= m) {
-                        // 합이 m의 범위 미만이면
-                        count++;
-                        rt++;
-                    } else {
-                        // m 의 범위 이상이면 초기화
-                        rt = ++lt;
+                let answer = 0,
+                    sum = 0,
+                    lt = 0;
+                for (let rt = 0; rt < arr.length; rt++) {
+                    sum += arr[rt];
+                    while (sum > m) {
+                        sum -= arr[lt++];
                     }
+                    answer += rt - lt + 1;
                 }
 
-                return count;
+                return answer;
             }
 
             let a = [1, 3, 1, 2, 3];
