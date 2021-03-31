@@ -6,40 +6,17 @@
     <body>
         <script>
             function solution(days, arr) {
-                let sellingMax = [];
-
-                // 일단 연속 3일 최고기록 매출이 단 한 번만 등장한다고 가정하고 작성하였음.
-                for (let i = 0; i < arr.length; i++) {
-                    const recent = sellingMax[sellingMax.length - 1] || -1;
-                    sellingMax.push(arr[i]);
-                    if (recent >= arr[i]) {
-                        while (sellingMax.length !== 0) sellingMax.pop();
-                        sellingMax.push(arr[i]);
-                    }
-                    if (sellingMax.length === days) break;
+                // 슬라이딩 윈도 기법으로...
+                let sum = arr.slice(0, days).reduce((result, value) => result + value);
+                // 시간복잡도 O(n)으로 해결 가능
+                for (let i = days; i < arr.length; i++) {
+                    const window = sum + arr[i] - arr[i - days];
+                    if (window > sum) sum = window;
+                    // else return sum; // 나중에 뒤에 더 큰 3일 연속 매출액이 나올 수도 있으니까 이건 안 된다.
                 }
-                const answer = sellingMax.reduce((result, value) => result + value, 0);
-                return answer;
+                return sum;
             }
-            /*
-                function solution(days, arr) {
-                    let sellingMax = [];
 
-                    // 일단 연속 3일 최고기록 매출이 단 한 번만 등장한다고 가정하고 작성하였음.
-                    for (let i = 0; i < arr.length; i++) {
-                        const recent = sellingMax[sellingMax.length - 1] || -1;
-                        if (recent < arr[i]) {
-                            sellingMax.push(arr[i]);
-                        } else {
-                            while (sellingMax.length !== 0) sellingMax.pop();
-                            sellingMax.push(arr[i]);
-                        }
-                        if (sellingMax.length === days) break;
-                    }
-                    const answer = sellingMax.reduce((result, value) => result + value, 0);
-                    return answer;
-                }
-            */
             let a = [12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
             console.log(solution(3, a));
         </script>
