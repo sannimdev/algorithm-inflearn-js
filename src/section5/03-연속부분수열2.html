@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(m, arr) {
+                const length = arr.length;
+                // 투 포인터 정의하기
+                let rt = (lt = 0);
+                let round = 1; // n개씩 집기
+                let count = 0,
+                    sum = 0;
+
+                while (round < length) {
+                    rt = lt + round - 1;
+
+                    const cut = arr.slice(lt, rt + 1);
+                    sum = cut.reduce((result, value) => result + value, 0);
+                    // sum <= m &&
+                    //     console.log(round, '개씩, 경우의 수:', lt, rt, '=>', cut.join(','), sum);
+                    if (sum <= m) count++; // m 이하인 수는 count하기
+
+                    lt++;
+                    if (lt > length - round) {
+                        lt = 0;
+                        round++;
+                    }
+                }
+                return count;
+            }
+
+            let a = [1, 3, 1, 2, 3];
+            console.log(solution(5, a));
+        </script>
+    </body>
+</html>
