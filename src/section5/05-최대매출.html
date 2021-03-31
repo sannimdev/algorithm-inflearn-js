@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(days, arr) {
+                // 슬라이딩 윈도 기법으로...
+                let sum = arr.slice(0, days).reduce((result, value) => result + value);
+                // 시간복잡도 O(n)으로 해결 가능
+                for (let i = days; i < arr.length; i++) {
+                    const window = sum + arr[i] - arr[i - days];
+                    if (window > sum) sum = window;
+                    // else return sum; // 나중에 뒤에 더 큰 3일 연속 매출액이 나올 수도 있으니까 이건 안 된다.
+                }
+                return sum;
+            }
+
+            let a = [12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
+            console.log(solution(3, a));
+        </script>
+    </body>
+</html>
