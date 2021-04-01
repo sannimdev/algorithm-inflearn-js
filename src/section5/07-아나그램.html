@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(a, b) {
+                const map = new Map();
+                for (s of a) {
+                    map.set(s, map.has(s) ? map.get(s) + 1 : 1);
+                }
+                for (s of b) {
+                    if (!map.has(s) || map.get(s) === 0) {
+                        return 'NO';
+                    }
+                    map.set(s, map.get(s) - 1);
+                }
+                // for (const [key, value] of map) {
+                //     if (value > 0) return 'NO';
+                // }
+                return 'YES';
+            }
+
+            let a = 'AbaAeCe';
+            let b = 'baeeACA';
+            console.log(solution(a, b));
+            console.log(solution('abaCC', 'Caaab'));
+        </script>
+    </body>
+</html>
