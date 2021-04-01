@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str) {
+                const votes = new Map();
+                for (const s of str) {
+                    const count = votes.get(s) || 0;
+                    votes.set(s, count + 1);
+                }
+                let max = Number.MIN_SAFE_INTEGER;
+                let answer;
+                for (let [key, val] of votes) {
+                    if (max < val) {
+                        max = val;
+                        answer = key;
+                    }
+                }
+                return answer;
+                // 해시(Map/Set) 없이 푼 문제
+                //   const votes = [];
+                //   for (const s of str) {
+                //     const v = votes.find((v) => v.id === s);
+                //     if (v) {
+                //       v.count++;
+                //     } else {
+                //       votes.push({
+                //         id: s,
+                //         count: 1,
+                //       });
+                //     }
+                //   }
+                //   return votes.sort((a, b) => b.count - a.count)[0].id;
+            }
+            console.log(solution('BACBACCACCBDEDE'));
+        </script>
+    </body>
+</html>
