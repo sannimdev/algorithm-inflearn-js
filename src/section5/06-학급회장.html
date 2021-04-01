@@ -11,12 +11,11 @@
                     const count = votes.get(s) || 0;
                     votes.set(s, count + 1);
                 }
-                let v = Object.fromEntries(votes.entries());
                 let max = Number.MIN_SAFE_INTEGER;
                 let answer;
-                for (const key of Object.keys(v)) {
-                    if (max < v[key]) {
-                        max = v[key];
+                for (let [key, val] of votes) {
+                    if (max < val) {
+                        max = val;
                         answer = key;
                     }
                 }
