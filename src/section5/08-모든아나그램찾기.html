@@ -7,24 +7,38 @@
         <script>
             function solution(a, b) {
                 let answer = 0;
-                let map = new Map();
+                const map = new Map();
+                const cp = new Map();
                 // STEP1. b에 관한 문자열을 map으로 구성하기
                 for (let i = 0; i < b.length; i++) {
                     map.set(b[i], (map.get(b) || 0) + 1);
                 }
                 // STEP2. a에서 문자열 3개씩 뽑아내기
-                for (let i = 0; i < a.length - b.length + 1; i++) {
-                    const str = a.substring(i, i + b.length);
-                    // STEP3. 뽑은 3개의 문자열을 map에서 하나씩 빼 본다.
-                    const cp = new Map(map);
-                    for (let j = 0; j < str.length; j++) {
-                        // 없거나 뽑아야 하는 시점에서 0개이면 일치하지 않으므로 반복문에서 나간다.
-                        if (!cp.has(str[j]) || cp.get(str[j]) === 0) break;
-                        else cp.set(str[j], cp.get(str[j]) - 1);
-                        if (j === str.length - 1) answer++;
-                    }
+                let lt = 0;
+                let rt = b.length - 1;
+                for (let i = 0; i < rt; i++) {
+                    cp.set(a[i], cp.has(a[i]) ? cp.get(a[i]) + 1 : 1);
+                }
+                console.log(cp);
+                while (lt < a.length - b.length + 1 && rt < a.length) {
+                    cp.set(a[rt], cp.has(a[rt]) ? cp.get(a[rt]) + 1 : 1);
+                    console.log(cp);
+                    if (isMapEqual(map, cp)) answer++;
+                    // 슬라이딩 윈도 차감 작업하기
+                    cp.set(a[lt], cp.get(a[lt]) - 1);
+                    if (cp.get(a[lt]) === 0) cp.delete(a[lt]);
+                    lt++;
+                    rt++;
                 }
                 return answer;
+            }
+
+            function isMapEqual(a, b) {
+                if (a.size !== b.size) return false;
+                for (const [key, value] of a) {
+                    if (!b.has(key) || value !== b.get(key)) return false;
+                }
+                return true;
             }
 
             let a = 'bacaAacba';
