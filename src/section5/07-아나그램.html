@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(a, b) {
+                const former = getLiteral(a);
+                const latter = getLiteral(b);
+                console.log(former, latter);
+                let answer = 'NO';
+                if (Object.keys(former).length !== Object.keys(latter).length) return answer;
+                for (const s of Object.keys(former)) {
+                    //전자에 있는 값이 후자에 없거나 + 전자에 있는 값의 개수와 후자에 있는 값의 개수가 다르면 NO 반환하기
+                    if (!latter[s] || former[s] !== latter[s]) return answer;
+                }
+                return 'YES';
+            }
+
+            function getLiteral(str) {
+                const obj = {};
+                for (const s of str) {
+                    if (obj[s]) {
+                        obj[s] = obj[s] + 1;
+                    } else {
+                        obj[s] = 1;
+                    }
+                }
+                return obj;
+            }
+
+            let a = 'AbaAeCe';
+            let b = 'baeeACA';
+            console.log(solution(a, b));
+            console.log(solution('abaCC', 'Caaab'));
+        </script>
+    </body>
+</html>
