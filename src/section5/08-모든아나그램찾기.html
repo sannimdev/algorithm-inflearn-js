@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            const srt = (x, y) => x.charCodeAt() - y.charCodeAt();
+            function solution(a, b) {
+                const k = b.split('').sort(srt).join('');
+                const length = b.length;
+                const arr = a.split('');
+                let answer = 0;
+                for (let i = 0; i < arr.length - length + 1; i++) {
+                    const comparison = [...arr.slice(i, i + length)].sort(srt).join('');
+                    if (comparison === k) answer++;
+                }
+                return answer;
+            }
+
+            let a = 'bacaAacba';
+            let b = 'abc';
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
