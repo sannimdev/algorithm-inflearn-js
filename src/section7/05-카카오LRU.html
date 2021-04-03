@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(size, arr) {
+                // 메모리 길이를 잡고 데이터는 0으로 고정하고 시작하자.
+                // 😂 그냥 처음부터 0 넣고 할걸....
+                const m = Array.from({ length: size }, () => 0);
+
+                // STEP1. LRU 알고리즘
+                arr.forEach((page) => {
+                    // STEP2. 페이지를 찾는다. (HIT or MISS)
+                    let index = size - 1;
+                    for (let i = 0; i < size; i++) {
+                        if (m[i] === page) {
+                            index = i;
+                            break; // size가 최대 10이라고 했으니까 오래 걸리는 것은 아니므로 굳이 break는 안 걸어도 되겠네.
+                        }
+                    }
+
+                    // STEP3.  HIT이면 해당 지점까지만 밀치고 MISS면 배열 전체를 밀치면 된다.
+                    for (let i = index; i > 0; i--) {
+                        m[i] = m[i - 1];
+                    }
+                    m[0] = page;
+                    console.log(m); // 중간점검
+                });
+
+                return m;
+            }
+
+            let arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
+            console.log(solution(5, arr));
+        </script>
+    </body>
+</html>
