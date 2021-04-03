@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                const array = arr.concat();
+                console.log(array, '...');
+
+                for (let i = 1; i < array.length; i++) {
+                    const temp = array[i];
+                    let j = i - 1;
+                    for (; j >= 0; j--) {
+                        // 만약에 큰 값을 만나면 뒤로 하나씩 밀쳐 준다. 값이 일시적으로 덮어는 건 temp값으로 보관 중이니까 상관하지 말고.
+                        if (array[j] > temp) array[j + 1] = array[j];
+                        // 📌🤷‍♂️ 멈추지 않으면 j가 0까지 가서 array[0]의 값을 array[i] 값으로  쭉 바꾸겠지...
+                        // 그런데 여기서 break;를 걸어버리면 멈춘 지점을 기준으로 j값이 남을 거니까.
+                        else break;
+                    }
+                    array[j + 1] = temp;
+                }
+
+                return array;
+            }
+
+            let arr = [11, 7, 5, 6, 10, 9];
+            /*
+                11 7 5 6 10 9
+                7 11 5 6 10 9
+                5 7 11 6 10 9
+                5 6 7 11 10 9
+                5 6 7 10 11 9
+                5 6 7 10 9 11
+
+            */
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
