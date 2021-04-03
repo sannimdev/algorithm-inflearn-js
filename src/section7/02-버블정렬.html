@@ -8,7 +8,7 @@
             function solution(arr) {
                 // 편의상 원본 배열 건드려서 작업...
                 for (let i = 0; i < arr.length - 1; i++) {
-                    for (let j = i; j < /*📌 여기 유의 */ arr.length - i - 1; j++) {
+                    for (let j = 0; j < /*📌 여기 유의 */ arr.length - i - 1; j++) {
                         if (arr[j] > arr[j + 1]) {
                             [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // 😂 대박.. 반전매력 자스
                             // const temp = arr[j + 1];
@@ -21,7 +21,9 @@
                 return arr;
             }
 
-            let arr = [13, 5, 11, 7, 23, 15];
+            // let arr = [13, 5, 11, 7, 23, 15];
+            let arr = [1, 2, 3, -3, -2, 5, 6, -6];
+
             console.log(solution(arr));
         </script>
     </body>
