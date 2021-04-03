@@ -13,12 +13,11 @@
                 // STEP1. LRU 알고리즘
                 arr.forEach((page) => {
                     // STEP2. 페이지를 찾는다. (HIT or MISS)
-                    const length = m.length;
-                    let index = length - 1;
-                    for (let i = 0; i < length; i++) {
+                    let index = size - 1;
+                    for (let i = 0; i < size; i++) {
                         if (m[i] === page) {
                             index = i;
-                            break;
+                            break; // size가 최대 10이라고 했으니까 오래 걸리는 것은 아니므로 굳이 break는 안 걸어도 되겠네.
                         }
                     }
 
