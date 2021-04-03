@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                // 선택 정렬 오름차순
+                const array = arr.concat();
+                for (let i = 0; i < array.length - 1; i++) {
+                    let minIndex = i;
+                    for (let j = i + 1; j < array.length; j++) {
+                        if (array[minIndex] > array[j]) minIndex = j;
+                    }
+                    console.log(i, array[minIndex]);
+                    [array[minIndex], array[i]] = [array[i], array[minIndex]];
+                }
+                return array;
+            }
+
+            let arr = [13, 5, 11, 7, 23, 15];
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
