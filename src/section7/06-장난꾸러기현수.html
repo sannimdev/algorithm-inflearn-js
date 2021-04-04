@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                const answer = [];
+
+                // STEP1.  키순으로 번호 발급하기
+                /*그런데 현수와 짝꿍이 자리를 바꾼 반 학생들의 일렬로 서 있는 키 정보가 주어진다고 했음*/
+                const numbers = arr.map((height, n) => ({ no: n + 1, height }));
+                // 참고: 삽입 정렬 사용해서 다시 정렬하기
+                const array = numbers.concat();
+                for (let i = 1; i < array.length; i++) {
+                    const pick = array[i];
+                    let j = i;
+                    for (; j > 0; j--) {
+                        if (array[j - 1].height > pick.height) {
+                            array[j] = array[j - 1];
+                        } else break;
+                    }
+                    array[j] = pick;
+                    console.log(
+                        i,
+                        array.map((n) => `${n.no}:${n.height}`)
+                    );
+                }
+
+                // STEP2. 현수 찾기
+                /*
+                    no 증감값이 1일 텐데 바로 이전 값이면 차이가 날 것이다.
+                */
+                console.log(array);
+                let recentNumber = 0;
+                for (const obj of array) {
+                    if (recentNumber !== obj.no - 1) {
+                        answer.unshift(obj.no);
+                    }
+                    recentNumber++;
+                }
+                // STEP3. 선생님이 번호를 부여함
+
+                return answer.join(' ');
+            }
+
+            let arr = [120, 125, 152, 130, 135, 135, 143, 127, 160];
+            // console.log(solution(arr));
+            console.log(solution([120, 130, 150, 150, 130, 150]));
+        </script>
+    </body>
+</html>
