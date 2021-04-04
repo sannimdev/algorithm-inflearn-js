@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                const answer = [];
+
+                // STEP1.  키순으로 정렬한 배열 만들기
+                /*그런데 현수와 짝꿍이 자리를 바꾼 반 학생들의 일렬로 서 있는 키 정보가 주어진다고 했음*/
+                // 참고: 삽입 정렬 사용해서 다시 정렬하기 (복습)
+                const array = arr.concat();
+
+                // for (let i = 1; i < array.length; i++) {
+                //     const pick = array[i];
+                //     let j = i;
+                //     for (; j >= 0; j--) {
+                //         if (array[j - 1] > pick) {
+                //             array[j] = array[j - 1];
+                //         } else break;
+                //     }
+                //     array[j] = pick;
+                // }
+
+                /*🧙‍♂️ 주의사항: sort 메서드는 문자열 기준으로 정렬되므로 자릿수가 다른 경우 유의해야 한다.*/
+                array.sort((a, b) => a - b);
+
+                // STEP2. 원래 배열과 키순으로 제대로 정렬한 배열 비교하기
+                // console.log(arr, array);
+
+                for (let i = 0; i < array.length; i++) {
+                    if (arr[i] !== array[i]) answer.push(i + 1);
+                }
+
+                return answer.join(',');
+            }
+
+            let arr = [120, 125, 152, 130, 135, 135, 143, 127, 160];
+            console.log(solution(arr));
+            console.log(solution([120, 130, 150, 150, 130, 150]));
+        </script>
+    </body>
+</html>
