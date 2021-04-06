@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                let answer;
+                // 혹시 map에 배열을 넣어서?
+                const map = new Map();
+                arr.forEach(([start, end], buddyId) => {
+                    for (let i = start; i < end; i++) {
+                        const m = map.get(i) || [];
+                        if (m.length === 0) {
+                            map.set(i, m);
+                        }
+                        m.push(buddyId);
+                    }
+                });
+
+                answer = Array.from(map).reduce(
+                    (result, current) => Math.max(result, current.length),
+                    0
+                );
+                return answer;
+            }
+            let arr = [
+                [14, 18],
+                [12, 15],
+                [15, 20],
+                [20, 30],
+                [5, 14],
+            ];
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
