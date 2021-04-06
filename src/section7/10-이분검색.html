@@ -11,13 +11,11 @@
                 //이분검색에 집중하기
                 let left = 0;
                 let right = array.length - 1;
-                while (true) {
+                while (left <= right) {
                     const mid = Math.floor((left + right) / 2);
                     if (n === array[mid]) return mid + 1;
                     else if (n > array[mid]) left = mid + 1;
                     else right = mid - 1;
-                    //
-                    if (left > right) break;
                 }
 
                 return '없음';
