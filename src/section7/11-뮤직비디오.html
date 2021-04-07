@@ -8,26 +8,36 @@
             function solution(n, songs) {
                 let answer;
                 const arrSum = (result, value) => result + value;
+                // 가장 긴 노래를 쪼갤 수 없으므로 최솟값은 가장 긴 노래시간이다.
+                const max = songs.reduce(
+                    (result, value) => Math.max(result, value),
+                    Number.MIN_SAFE_INTEGER
+                );
                 const total = songs.reduce(arrSum, 0);
                 const average = total / n;
 
-                let lt = 0;
-                let rt = songs.length - 1;
-                let albums = [];
-                while (lt <= rt) {
-                    const mid = Math.floor(lt + rt) / 2;
-                    const sum = songs.slice(lt, mid + 1).reduce(arrSum, 0);
-                    if (sum <= average) {
-                        albums.push(songs.slice(lt, mid + 1));
+                let lt = max;
+                let rt = total;
+
+                const albums = [];
+                while (true) {
+                    const unit = (lt + rt) / 2;
+                    let p = 0;
+                    let sum = 0;
+                    while (true) {
+                        const acc = sum + songs[p + 1];
+                        if (acc > unit) break;
+                        else albums.push();
                     }
-                    lt = mid + 1;
+
+                    break;
                 }
 
                 return answer;
             }
 
             // N개의 노래, M개의 DVD에 동영상 녹화 (단, M개의 DVD는 모두 동일한 크기)
-            console.log(solution(3, [1, 2, 3, 4, 5, 6, 7, 8, 9]));
+            console.log(solution(3, [1, 2, 3, 4, 5, 6, 7, 8, 9])); // 꼭 정렬돼서 들어온다는 보장이 없음.
         </script>
     </body>
 </html>
