@@ -5,35 +5,36 @@
     </head>
     <body>
         <script>
-            function solution(n, songs) {
+            function solution(m, songs) {
                 let answer;
-                const arrSum = (result, value) => result + value;
-                // 가장 긴 노래를 쪼갤 수 없으므로 최솟값은 가장 긴 노래시간이다.
-                const max = songs.reduce(
-                    (result, value) => Math.max(result, value),
-                    Number.MIN_SAFE_INTEGER
-                );
-                const total = songs.reduce(arrSum, 0);
-                const average = total / n;
+                let lt = Math.max(...songs);
+                let rt = songs.reduce((result, value) => result + value, 0);
 
-                let lt = max;
-                let rt = total;
-
-                const albums = [];
-                while (true) {
-                    const unit = (lt + rt) / 2;
-                    let p = 0;
-                    let sum = 0;
-                    while (true) {
-                        const acc = sum + songs[p + 1];
-                        if (acc > unit) break;
-                        else albums.push();
-                    }
-
-                    break;
+                // 이분 검색은 외우세요~
+                while (lt <= rt) {
+                    let mid = parseInt((lt + rt) / 2);
+                    if (count(songs, mid) <= m) {
+                        answer = mid;
+                        rt = mid - 1;
+                    } else lt = mid + 1; // 👈 여기 다시듣기
                 }
 
                 return answer;
+            }
+
+            // capacity는 mid값이라고 생각하면 된다.
+            function count(songs, capacity) {
+                let cnt = 1;
+                let sum = 0;
+
+                for (let x of songs) {
+                    if (sum + x > capacity) {
+                        cnt += 1;
+                        sum = 0;
+                    }
+                    sum += x;
+                }
+                return cnt;
             }
 
             // N개의 노래, M개의 DVD에 동영상 녹화 (단, M개의 DVD는 모두 동일한 크기)
