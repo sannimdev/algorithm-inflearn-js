@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer = [];
+                function DFS(L) {
+                    if (L === 0) return;
+                    else {
+                        const next = Math.floor(L / 2);
+                        const rest = L % 2;
+                        DFS(next); // 나눠가는 것은 순차적으로 작업하고
+                        answer.push(rest); // 나머지를 수집하는 것은 역순으로 작업하기
+                    }
+                }
+
+                DFS(n);
+                return answer.join('');
+            }
+            console.log(solution(11));
+        </script>
+    </body>
+</html>
