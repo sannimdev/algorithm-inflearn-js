@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                function DFS(n) {
+                    // 🚧🚄 종착 지점
+                    if (n > 7) return;
+                    else {
+                        // 🚄 계속 트리가 뻗어나가는 지점
+                        // console.log() 선언 시점이 부모 노드의 순회 시점임.
+                        // console.log(n); // 전위 순회
+                        DFS(n * 2);
+                        // console.log(n); // 중위 순회
+                        DFS(n * 2 + 1);
+                        // console.log(n); // 후위 순회
+                        /* ex: 병합정렬 */
+                    }
+                }
+                DFS(n);
+            }
+
+            solution(1);
+        </script>
+    </body>
+</html>
