@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer = [];
+                let arr = [];
+
+                function DFS(v) {
+                    if (v > n) {
+                        arr.length > 0 && answer.push(arr.join(', '));
+                        return;
+                    } else {
+                        arr.push(v);
+                        DFS(v + 1);
+                        arr = arr.filter((item) => item !== v);
+                        DFS(v + 1);
+                    }
+                }
+                DFS(1);
+
+                return answer;
+            }
+
+            console.log(solution(3));
+        </script>
+    </body>
+</html>
