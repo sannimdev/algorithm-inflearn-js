@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(max, arr) {
+                const answer = [];
+                let subset = [];
+
+                function DFS(v) {
+                    if (v === arr.length) {
+                        answer.push(subset.reduce((result, current) => result + current, 0));
+                        return;
+                    } else {
+                        subset.push(arr[v]);
+                        DFS(v + 1);
+                        subset.pop();
+                        DFS(v + 1);
+                    }
+                }
+                DFS(0);
+                // 초과하는 값 거르기
+                return Math.max(...answer.filter((n) => n <= max));
+            }
+            let arr = [81, 58, 42, 33, 61];
+            console.log(solution(259, arr));
+        </script>
+    </body>
+</html>
