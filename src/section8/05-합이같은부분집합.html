@@ -6,12 +6,16 @@
     <body>
         <script>
             function solution(arr) {
-                let answer = [];
+                let answer = 'NO';
+                const total = arr.reduce((result, current) => result + current, 0);
                 let subset = [];
                 function DFS(v) {
                     // v (index of array)
                     if (v === arr.length) {
-                        answer.push(subset.reduce((result, current) => result + current, 0));
+                        // answer.push(subset.reduce((result, current) => result + current, 0));
+                        const subsetSum = subset.reduce((result, current) => result + current, 0);
+                        if (total - subsetSum === subsetSum) answer = 'YES';
+                        return;
                     } else {
                         subset.push(arr[v]);
                         DFS(v + 1);
@@ -20,14 +24,7 @@
                     }
                 }
                 DFS(0);
-                // 배열에서 합이 같은 원소 찾기
-                for (const element of answer) {
-                    const count = answer.filter((elem) => elem === element).length;
-                    if (count >= 2) {
-                        return 'YES';
-                    }
-                }
-                return 'NO';
+                return answer;
             }
             console.log(solution([1, 3, 5, 6, 7, 10]));
         </script>
