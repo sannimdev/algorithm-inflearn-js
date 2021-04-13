@@ -5,29 +5,21 @@
     </head>
     <body>
         <script>
-            function solution(n, ps, pt) {
-                const answer = [];
-                let subset = { time: 0, score: 0 };
-                function dfs(v) {
-                    // 이때 subset.time이 n보다 큰지 필터링해줘야 한다..
-                    if (subset.time > n) return;
-                    if (v === ps.length) {
-                        // 부분집합 중 마지막 직전까지 시간이 초과되지 않은 경우 v === ps.length에 걸려 들어온다.
-                        subset.time <= n && answer.push({ ...subset });
-                        return;
+            function solution(m, ps, pt) {
+                let answer = Number.MIN_SAFE_INTEGER;
+                let n = ps.length;
+
+                function DFS(L, sum, time) {
+                    if (time > m) return;
+                    if (L === n) {
+                        answer = Math.max(answer, sum);
                     } else {
-                        subset.time += pt[v];
-                        subset.score += ps[v];
-                        dfs(v + 1);
-                        subset.time -= pt[v];
-                        subset.score -= ps[v];
-                        dfs(v + 1);
+                        DFS(L + 1, sum + ps[L], time + pt[L]);
+                        DFS(L + 1, sum, time);
                     }
                 }
-                dfs(0);
-                const scores = answer.map(({ score }) => score);
-                return Math.max(...scores);
-                // return answer;
+                DFS(0, 0, 0);
+                return answer;
             }
 
             let ps = [10, 25, 15, 6, 7];
