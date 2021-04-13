@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, ps, pt) {
+                const answer = [];
+                let subset = { time: 0, score: 0 };
+                function dfs(v) {
+                    // 이때 subset.time이 n보다 큰지 필터링해줘야 한다..
+                    if (subset.time > n) return;
+                    if (v === ps.length) {
+                        // 부분집합 중 마지막 직전까지 시간이 초과되지 않은 경우 v === ps.length에 걸려 들어온다.
+                        subset.time <= n && answer.push({ ...subset });
+                        return;
+                    } else {
+                        subset.time += pt[v];
+                        subset.score += ps[v];
+                        dfs(v + 1);
+                        subset.time -= pt[v];
+                        subset.score -= ps[v];
+                        dfs(v + 1);
+                    }
+                }
+                dfs(0);
+                const scores = answer.map(({ score }) => score);
+                return Math.max(...scores);
+                // return answer;
+            }
+
+            let ps = [10, 25, 15, 6, 7];
+            let pt = [5, 12, 8, 3, 4];
+            console.log(solution(20, ps, pt));
+        </script>
+    </body>
+</html>
