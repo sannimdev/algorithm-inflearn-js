@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // 재귀 무시하고 반복문으로 작성해 보기 (nP2밖에 안 되는 코드)
+            // 추출해야 하는 개수가 늘어날수록 for문의 개수가 늘어난다.
+            // for (let i = 1; i <= n; i++) {
+            //     for (let j = 1; j <= n; j++) {
+            //         answer.push([i, j]);
+            //     }
+            // }
+            function solution(n, m) {
+                let answer = [];
+                let tmp = Array.from({ length: m }, () => 0);
+
+                // L이 몇 중 포문으로 도는지 결정. 즉, 3P2에서 2가 몇인지 결정.
+                function DFS(L) {
+                    // 그런데 L은 2일때까지만 돌아야 하므로(0, 1 이렇게 2개) 2중포문으로 제한이 걸린다.
+                    if (L === m) {
+                        answer.push(tmp.concat());
+                        return;
+                    } else {
+                        for (let i = 1; i <= n; i++) {
+                            /*응용: 같은 숫자는 제외*/
+                            tmp[L] = i;
+                            DFS(L + 1);
+                        }
+                    }
+                }
+                DFS(0);
+
+                return answer;
+            }
+
+            console.log(solution(3, 2));
+            console.log(solution(4, 3));
+        </script>
+    </body>
+</html>
