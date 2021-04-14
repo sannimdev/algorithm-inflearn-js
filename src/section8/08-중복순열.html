@@ -16,23 +16,27 @@
                 let answer = [];
                 let tmp = Array.from({ length: m }, () => 0);
 
+                // L이 몇 중 포문으로 도는지 결정. 즉, 3P2에서 2가 몇인지 결정.
                 function DFS(L) {
+                    // 그런데 L은 2일때까지만 돌아야 하므로(0, 1 이렇게 2개) 2중포문으로 제한이 걸린다.
                     if (L === m) {
-                        answer.push(tmp.slice());
+                        answer.push(tmp.concat());
+                        return;
                     } else {
                         for (let i = 1; i <= n; i++) {
+                            /*응용: 같은 숫자는 제외*/
                             tmp[L] = i;
                             DFS(L + 1);
                         }
                     }
                 }
-
                 DFS(0);
 
                 return answer;
             }
 
             console.log(solution(3, 2));
+            console.log(solution(4, 3));
         </script>
     </body>
 </html>
