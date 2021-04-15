@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // 맨 위에 숫자를 배치하는 건 순열임
+            function solution(n, f) {
+                let answer = Number.MAX_SAFE_INTEGER;
+                let ch = Array.from({ length: n }, () => 0);
+                let tmp = Array.from({ length: n }, () => 0);
+                function DFS(L) {
+                    if (L === n) {
+                        const pascal = goPascal(tmp);
+                        if (pascal === f) {
+                            answer = Math.min(answer, Number.parseInt(tmp.join('')));
+                        }
+                    } else {
+                        for (let i = 0; i < n; i++) {
+                            if (ch[i] === 0) {
+                                ch[i] = 1;
+                                tmp[L] = i + 1;
+                                DFS(L + 1);
+                                ch[i] = 0;
+                            }
+                        }
+                    }
+                }
+                DFS(0);
+
+                return answer
+                    .toString()
+                    .split('')
+                    .map((s) => Number.parseInt(s));
+            }
+
+            // 파스칼처럼 수열 만들어나가면서 계산하기
+            function goPascal(arr = []) {
+                let answer = 0;
+                function DFS(arr) {
+                    if (arr.length === 1) {
+                        answer = arr[0];
+                    } else {
+                        const newArr = Array.from({ length: arr.length - 1 }, () => 0);
+                        for (let i = 0; i < newArr.length; i++) {
+                            newArr[i] = arr[i] + arr[i + 1];
+                        }
+                        DFS(newArr);
+                    }
+                }
+                DFS(arr);
+                return answer;
+            }
+
+            console.log(goPascal([3, 1, 2, 4]));
+
+            console.log(solution(4, 16));
+        </script>
+    </body>
+</html>
