@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(k, arr, m) {
+                const n = arr.length;
+                let answer = [];
+                let tmp = [];
+
+                // STEP1. n개의 숫자 중에서 임의의 k개를 뽑기
+                function DFS(L, start) {
+                    if (L === k) {
+                        if (tmp.reduce((result, current) => result + current, 0) % m === 0)
+                            answer.push(tmp.slice());
+                    } else {
+                        for (let i = start; i < arr.length; i++) {
+                            tmp[L] = arr[i];
+                            DFS(L + 1, /* 여기도 조심하자 */ i + 1);
+                        }
+                    }
+                }
+                DFS(0, 0);
+                return answer.length;
+            }
+            console.log(solution(3, [2, 4, 5, 8, 12], 6));
+        </script>
+    </body>
+</html>
