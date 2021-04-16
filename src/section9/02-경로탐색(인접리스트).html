@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, arr) {
+                const m = arr.length;
+                const answer = [];
+                const path = [];
+                const ch = Array.from({ length: n + 1 }, () => 0);
+                // STEP1. 인접 리스트 만들기
+                const graph = Array.from({ length: n + 1 }, () => []);
+                for (const [row, col] of arr) {
+                    graph[row].push(col);
+                }
+
+                //STEP2. 경로 탐색하기
+                function DFS(v) {
+                    if (v === n) {
+                        answer.push(path.slice());
+                    } else {
+                        for (let i = 0; i < graph[v].length /*😎 여기가 확 줄어든다.*/; i++) {
+                            if (ch[graph[v][i]] === 0) {
+                                ch[graph[v][i]] = 1;
+                                path.push(graph[v][i]);
+                                DFS(graph[v][i]);
+                                path.pop();
+                                ch[graph[v][i]] = 0;
+                            }
+                        }
+                    }
+                }
+
+                ch[1] = 1;
+                path.push(1);
+                DFS(1);
+                console.log(answer);
+                return answer.length;
+            }
+
+            let arr = [
+                [1, 2],
+                [1, 3],
+                [1, 4],
+                [2, 1],
+                [2, 3],
+                [2, 5],
+                [3, 4],
+                [4, 2],
+                [4, 5],
+            ];
+            console.time();
+            console.log(solution(5, arr));
+            console.timeEnd();
+        </script>
+    </body>
+</html>
