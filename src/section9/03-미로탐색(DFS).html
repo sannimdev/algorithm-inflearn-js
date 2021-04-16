@@ -7,9 +7,10 @@
         <script>
             function solution(arr) {
                 let answer = 0;
+                const dx = [0, 0, -1, 1];
+                const dy = [-1, 1, 0, 0];
                 const path = [];
                 const length = arr.length;
-                let count = 0;
 
                 function DFS(row, col) {
                     if (row === length - 1 && col === length - 1) {
@@ -19,37 +20,18 @@
                         // 상하좌우f
                         // console.log('DFS 시작', [row, col]);
                         path.push([row, col]);
-                        if (
-                            row - 1 >= 0 &&
-                            arr[row - 1][col] === 0 &&
-                            !path.find((arr) => isEqual(arr, [row - 1, col]))
-                        ) {
-                            // console.log('상 호출', [row - 1, col]);
-                            DFS(row - 1, col);
-                        }
-                        if (
-                            row + 1 < length &&
-                            arr[row + 1][col] === 0 &&
-                            !path.find((arr) => isEqual(arr, [row + 1, col]))
-                        ) {
-                            // console.log('하 호출', [row + 1, col]);
-                            DFS(row + 1, col);
-                        }
-                        if (
-                            col - 1 >= 0 &&
-                            arr[row][col - 1] === 0 &&
-                            !path.find((arr) => isEqual(arr, [row, col - 1]))
-                        ) {
-                            // console.log('좌 호출', [row, col - 1]);
-                            DFS(row, col - 1);
-                        }
-                        if (
-                            col + 1 < length &&
-                            arr[row][col + 1] === 0 &&
-                            !path.find((arr) => isEqual(arr, [row, col + 1]))
-                        ) {
-                            // console.log('우 호출', [row, col + 1]);
-                            DFS(row, col + 1);
+                        for (let i = 0; i < dx.length; i++) {
+                            if (
+                                row + dy[i] >= 0 &&
+                                row + dy[i] < length &&
+                                col + dx[i] >= 0 &&
+                                col + dx[i] < length &&
+                                arr[row + dy[i]][col + dx[i]] === 0 &&
+                                !path.find((arr) => isEqual(arr, [row + dy[i], col + dx[i]]))
+                            ) {
+                                // console.log('상 호출', [row - 1, col]);
+                                DFS(row + dy[i], col + dx[i]);
+                            }
                         }
                         path.pop();
                     }
