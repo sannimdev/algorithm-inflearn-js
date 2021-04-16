@@ -5,38 +5,28 @@
     </head>
     <body>
         <script>
-            function solution(arr) {
+            function solution(board) {
                 let answer = 0;
-                const dx = [0, 0, -1, 1];
-                const dy = [-1, 1, 0, 0];
-                const path = [];
-                const length = arr.length;
+                const dx = [-1, 0, 1, 0];
+                const dy = [0, 1, 0, -1];
 
-                function DFS(row, col) {
-                    if (row === length - 1 && col === length - 1) {
+                function DFS(x, y) {
+                    if (x === 6 && y === 6) {
                         answer += 1;
-                        // console.log(path);
                     } else {
-                        // 상하좌우f
-                        // console.log('DFS 시작', [row, col]);
-                        path.push([row, col]);
-                        for (let i = 0; i < dx.length; i++) {
-                            if (
-                                row + dy[i] >= 0 &&
-                                row + dy[i] < length &&
-                                col + dx[i] >= 0 &&
-                                col + dx[i] < length &&
-                                arr[row + dy[i]][col + dx[i]] === 0 &&
-                                !path.find((arr) => isEqual(arr, [row + dy[i], col + dx[i]]))
-                            ) {
-                                // console.log('상 호출', [row - 1, col]);
-                                DFS(row + dy[i], col + dx[i]);
+                        for (let k = 0; k < 4; k++) {
+                            const nx = x + dx[k];
+                            const ny = y + dy[k];
+                            if (nx >= 0 && nx <= 6 && ny >= 0 && ny <= 6 && board[nx][ny] === 0) {
+                                board[nx][ny] = 1;
+                                DFS(nx, ny);
+                                board[nx][ny] = 0;
                             }
                         }
-                        path.pop();
                     }
                 }
 
+                board[0][0] = 1;
                 DFS(0, 0);
                 return answer;
             }
