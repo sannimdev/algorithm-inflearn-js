@@ -9,39 +9,38 @@
                 // 정점의 개수 N, 간선의 수 M
                 const m = arr.length;
                 let answer = [];
-                let route = [];
+                let path = [];
                 let ch = Array.from({ length: n + 1 }, () => 0);
                 // STEP1. 행렬 채우기
                 // 인덱스 시작은 0, 정점 시작은 1인데 정점에 맞추기 위해 n이 아닌 n+1을 하였음.
                 const graph = Array.from({ length: n + 1 }, () => Array(n + 1).fill(0));
-                for (let i = 0; i < arr.length; i++) {
-                    const [row, col] = arr[i];
+                for (const [row, col] of arr) {
                     graph[row][col] = 1;
                 }
                 console.log('STEP1. graph', graph);
 
                 // STEP2. 경로 탐색하기
-                function DFS(L) {
-                    if (L === n) {
-                        answer.push(route.slice());
+                function DFS(v) {
+                    if (v === n) {
+                        answer.push(path.slice());
                     } else {
-                        for (let i = 1; i <= m; i++) {
-                            if (ch[i] === 0 && graph[L][i] > 0) {
-                                console.log(`graph[${L}][${i}]=`, graph[L][i], 'ch=', ch);
-                                route.push(i);
-                                ch[i] = 1;
-                                console.log('STEP2. route', route);
+                        for (let i = 1; i <= n /*😅헉*/; i++) {
+                            if (graph[v][i] === 1 && ch[i] === 0) {
+                                console.log(`graph[${v}][${i}]=`, graph[v][i], 'ch=', ch);
+                                path.push(i);
+                                ch[i] = 1; // ✔ 방문했다고 체크해주기
+                                console.log('STEP2. path', path);
                                 console.log('STEP2. ch', ch);
                                 // 이전에 경로 탐색하지 않은 요소들하고 이동할 수 있는 곳만
                                 DFS(i);
-                                route.pop();
-                                ch[i] = 0;
+                                path.pop();
+                                ch[i] = 0; // 방문 이후에는 흔적 지워주기
                             }
                         }
                     }
                 }
                 // 처음 출발점 체크 신경써줘야 한다.
-                route.push(1);
+                path.push(1);
                 ch[1] = 1;
                 DFS(1);
 
