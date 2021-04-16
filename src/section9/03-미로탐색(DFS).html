@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(arr) {
+                let answer = 0;
+                const path = [];
+                const length = arr.length;
+                let count = 0;
+
+                function DFS(row, col) {
+                    if (row === length - 1 && col === length - 1) {
+                        answer += 1;
+                        // console.log(path);
+                    } else {
+                        // 상하좌우f
+                        // console.log('DFS 시작', [row, col]);
+                        path.push([row, col]);
+                        if (
+                            row - 1 >= 0 &&
+                            arr[row - 1][col] === 0 &&
+                            !path.find((arr) => isEqual(arr, [row - 1, col]))
+                        ) {
+                            // console.log('상 호출', [row - 1, col]);
+                            DFS(row - 1, col);
+                        }
+                        if (
+                            row + 1 < length &&
+                            arr[row + 1][col] === 0 &&
+                            !path.find((arr) => isEqual(arr, [row + 1, col]))
+                        ) {
+                            // console.log('하 호출', [row + 1, col]);
+                            DFS(row + 1, col);
+                        }
+                        if (
+                            col - 1 >= 0 &&
+                            arr[row][col - 1] === 0 &&
+                            !path.find((arr) => isEqual(arr, [row, col - 1]))
+                        ) {
+                            // console.log('좌 호출', [row, col - 1]);
+                            DFS(row, col - 1);
+                        }
+                        if (
+                            col + 1 < length &&
+                            arr[row][col + 1] === 0 &&
+                            !path.find((arr) => isEqual(arr, [row, col + 1]))
+                        ) {
+                            // console.log('우 호출', [row, col + 1]);
+                            DFS(row, col + 1);
+                        }
+                        path.pop();
+                    }
+                }
+
+                DFS(0, 0);
+                return answer;
+            }
+
+            function isEqual(arr1, arr2) {
+                if (arr1[0] === arr2[0] && arr1[1] === arr2[1]) return true;
+                return false;
+            }
+
+            let arr = [
+                [0, 0, 0, 0, 0, 0, 0],
+                [0, 1, 1, 1, 1, 1, 0],
+                [0, 0, 0, 1, 0, 0, 0],
+                [1, 1, 0, 1, 0, 1, 1],
+                [1, 1, 0, 0, 0, 0, 1],
+                [1, 1, 0, 1, 1, 0, 0],
+                [1, 0, 0, 0, 0, 0, 0],
+            ];
+
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
