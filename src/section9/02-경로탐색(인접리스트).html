@@ -9,7 +9,7 @@
                 const m = arr.length;
                 const answer = [];
                 const path = [];
-                const ch = [];
+                const ch = Array.from({ length: n + 1 }, () => 0);
                 // STEP1. 인접 리스트 만들기
                 const graph = Array.from({ length: n + 1 }, () => []);
                 for (const [row, col] of arr) {
@@ -21,22 +21,22 @@
                     if (v === n) {
                         answer.push(path.slice());
                     } else {
-                        for (let i = 1; i <= n; i++) {
-                            if (!ch.find((num) => num === i) && graph[v].find((num) => num === i)) {
-                                ch.push(i);
-                                path.push(i);
-                                DFS(i);
-                                ch.pop();
+                        for (let i = 0; i < graph[v].length /*😎 여기가 확 줄어든다.*/; i++) {
+                            if (ch[graph[v][i]] === 0) {
+                                ch[graph[v][i]] = 1;
+                                path.push(graph[v][i]);
+                                DFS(graph[v][i]);
                                 path.pop();
+                                ch[graph[v][i]] = 0;
                             }
                         }
                     }
                 }
 
-                ch.push(1);
+                ch[1] = 1;
                 path.push(1);
                 DFS(1);
-
+                console.log(answer);
                 return answer.length;
             }
 
