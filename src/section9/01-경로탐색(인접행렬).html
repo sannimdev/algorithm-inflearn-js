@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, arr) {
+                // 정점의 개수 N, 간선의 수 M
+                const m = arr.length;
+                let answer = [];
+                let route = [];
+                let ch = Array.from({ length: n + 1 }, () => 0);
+                // STEP1. 행렬 채우기
+                // 인덱스 시작은 0, 정점 시작은 1인데 정점에 맞추기 위해 n이 아닌 n+1을 하였음.
+                const graph = Array.from({ length: n + 1 }, () => Array(n + 1).fill(0));
+                for (let i = 0; i < arr.length; i++) {
+                    const [row, col] = arr[i];
+                    graph[row][col] = 1;
+                }
+                console.log('STEP1. graph', graph);
+
+                // STEP2. 경로 탐색하기
+                function DFS(L) {
+                    if (L === n) {
+                        answer.push(route.slice());
+                    } else {
+                        for (let i = 1; i <= m; i++) {
+                            if (ch[i] === 0 && graph[L][i] > 0) {
+                                console.log(`graph[${L}][${i}]=`, graph[L][i], 'ch=', ch);
+                                route.push(i);
+                                ch[i] = 1;
+                                console.log('STEP2. route', route);
+                                console.log('STEP2. ch', ch);
+                                // 이전에 경로 탐색하지 않은 요소들하고 이동할 수 있는 곳만
+                                DFS(i);
+                                route.pop();
+                                ch[i] = 0;
+                            }
+                        }
+                    }
+                }
+                // 처음 출발점 체크 신경써줘야 한다.
+                route.push(1);
+                ch[1] = 1;
+                DFS(1);
+
+                console.log('최종 경로', answer);
+                return answer.length;
+            }
+
+            let arr = [
+                [1, 2],
+                [1, 3],
+                [1, 4],
+                [2, 1],
+                [2, 3],
+                [2, 5],
+                [3, 4],
+                [4, 2],
+                [4, 5],
+            ];
+            console.log(solution(5, arr));
+        </script>
+    </body>
+</html>
