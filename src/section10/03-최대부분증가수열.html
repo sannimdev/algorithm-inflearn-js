@@ -10,19 +10,18 @@
                 const dy = Array.from({ length: arr.length }, () => 0);
 
                 dy[0] = 1;
-                dy[1] = dy[0] < dy[1] ? 1 + 1 : 1;
 
-                for (let i = 2; i < arr.length; i++) {
-                    const cases = [];
-                    for (let j = 0; j < i; j++) {
-                        if (arr[j] < arr[i]) {
-                            cases.push(dy[j]);
+                for (let i = 1; i < arr.length; i++) {
+                    let max = 0;
+                    for (let j = i - 1; j >= 0; j--) {
+                        if (arr[j] < arr[i] && dy[j] > max) {
+                            max = dy[j];
                         }
                     }
-                    dy[i] = Math.max(answer, ...cases) + 1;
+                    dy[i] = max + 1;
+                    answer = Math.max(answer, dy[i]);
                 }
                 console.log(dy);
-                answer = dy.reduce((result, current) => Math.max(result, current), 0);
                 return answer;
             }
 
