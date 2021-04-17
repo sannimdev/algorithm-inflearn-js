@@ -7,28 +7,26 @@
         <script>
             function solution(arr) {
                 let answer = 0;
-                let sequences = [];
+                const dy = Array.from({ length: arr.length }, () => 0);
 
-                for (let i = 0; i < arr.length; i++) {
-                    sequences = [];
-                    for (let j = i; j < arr.length - 1; j++) {
-                        if (j === i) {
-                            sequences.push(arr[j]);
-                            continue;
-                        }
-                        const current = arr[j];
-                        if (sequences.length > 0 && sequences[sequences.length - 1] < current) {
-                            sequences.push(arr[j]);
+                dy[0] = 1;
+                dy[1] = dy[0] < dy[1] ? 1 + 1 : 1;
+
+                for (let i = 2; i < arr.length; i++) {
+                    const cases = [];
+                    for (let j = 0; j < i; j++) {
+                        if (arr[j] < arr[i]) {
+                            cases.push(dy[j]);
                         }
                     }
-                    console.log(sequences);
-                    answer = Math.max(sequences.length, answer);
+                    dy[i] = Math.max(answer, ...cases) + 1;
                 }
-
+                console.log(dy);
+                answer = dy.reduce((result, current) => Math.max(result, current), 0);
                 return answer;
             }
 
-            // console.log(solution([2, 7, 5, 8, 6, 4, 7, 12, 3]));
+            console.log(solution([2, 7, 5, 8, 6, 4, 7, 12, 3]));
             console.log(solution([5, 3, 7, 8, 6, 2, 9, 4]));
         </script>
     </body>
