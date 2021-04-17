@@ -7,31 +7,43 @@
         <script>
             function solution(board) {
                 // n*n의 격자판이라고 했으니까
+                const length = board.length; // 하나로 길이 통일
+                const checked = Array.from({ length: length }, () => Array(length).fill(0));
+                const dy = [-1, 1, 0, 0, -1, -1, 1, 1]; // 대각선까지 탐색
+                const dx = [0, 0, -1, 1, -1, 1, -1, 1];
                 let answer = 0;
-                const n = board.length; // 하나로 길이 통일
-                const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
-                const dy = [0, 1, 1, 1, 0, -1, -1, -1]; // 대각선까지 탐색
 
-                function DFS(x, y) {
-                    board[x][y] = 0;
-                    for (let k = 0; k < 8; k++) {
-                        const nx = x + dx[k];
-                        const ny = y + dy[k];
-                        if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] === 1) {
-                            console.log(nx, ny);
-                            DFS(nx, ny);
+                function DFS(v, row, col) {
+                    // if (row === length - 1 && col === length - 1) {
+                    //     return answer;
+
+                    for (let k = 0; k < dx.length; k++) {
+                        const nx = col + dx[k];
+                        const ny = row + dy[k];
+                        if (
+                            board[row][col] === 1 &&
+                            checked[row][col] === 0 &&
+                            nx >= 0 &&
+                            nx < length &&
+                            ny >= 0 &&
+                            ny < length &&
+                            board[ny][nx] === 1 &&
+                            checked[ny][ny] === 0
+                        ) {
+                            board[row][col] = 0;
+                            checked[row][col] = 1;
+                            DFS(v + 1, ny, nx);
+                            board[ny][nx] = 1;
+                            if (v === 0) {
+                                answer += 1;
+                                console.log(`DFS(${v}, ${row}, ${col})`, answer);
+                            }
                         }
                     }
                 }
-
-                for (let i = 0; i < n; i++) {
-                    for (let j = 0; j < n; j++) {
-                        if (board[i][j] === 1) {
-                            answer++;
-                            console.log(i, j);
-                            DFS(i, j);
-                            console.log('dfs end');
-                        }
+                for (let i = 0; i < length; i++) {
+                    for (let j = 0; j < length; j++) {
+                        DFS(0, i, j);
                     }
                 }
 
