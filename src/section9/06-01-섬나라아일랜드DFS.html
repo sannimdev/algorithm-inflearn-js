@@ -7,38 +7,30 @@
         <script>
             function solution(board) {
                 // n*n의 격자판이라고 했으니까
-                const length = board.length; // 하나로 길이 통일
-                const dy = [-1, -1, -1, 0, 1, 1, 1, 0]; // 대각선까지 탐색
-                const dx = [-1, 0, 1, 1, 1, 0, -1, -1];
                 let answer = 0;
+                const n = board.length; // 하나로 길이 통일
+                const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
+                const dy = [0, 1, 1, 1, 0, -1, -1, -1]; // 대각선까지 탐색
 
-                function DFS(row, col) {
-                    // if (row === length - 1 && col === length - 1) {
-                    //     return answer;
-                    board[row][col] = 0;
-                    for (let k = 0; k < dx.length; k++) {
-                        const nx = col + dx[k];
-                        const ny = row + dy[k];
-                        if (
-                            nx >= 0 &&
-                            nx < length &&
-                            ny >= 0 &&
-                            ny < length &&
-                            board[ny][nx] === 1
-                        ) {
-                            console.log(ny, nx);
-                            DFS(ny, nx);
+                function DFS(x, y) {
+                    board[x][y] = 0;
+                    for (let k = 0; k < 8; k++) {
+                        const nx = x + dx[k];
+                        const ny = y + dy[k];
+                        if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] === 1) {
+                            console.log(nx, ny);
+                            DFS(nx, ny);
                         }
                     }
                 }
 
-                for (let i = 0; i < length; i++) {
-                    for (let j = 0; j < length; j++) {
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j < n; j++) {
                         if (board[i][j] === 1) {
+                            answer++;
                             console.log(i, j);
                             DFS(i, j);
-                            answer++;
-                            console.log('=====', answer);
+                            console.log('dfs end');
                         }
                     }
                 }
