@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer;
+                const dy = Array.from({ length: n + 1 }, () => 0); // 다이내믹 (점화식)
+                const steps = [1, 2];
+                const queue = [];
+
+                // BFS, DFS 훈련..
+                /*
+                    규칙 찾기
+                    - 3계단을 올라야 할 때의 경우의 수는
+                        - 1계단 올라야 할 때의 경우의 수(1) + 2계단 올라야 할 때의 경우의 수(2) = 3이 나온다.
+                        - 어라? n-2 + n-1 = n의 경우의 수가 나오네?
+                        - 그럼 그 뒤는 굳이 계산하지 말고 2개만 계산하면 되겠네?
+                */
+                for (let i = 1; i <= 2; i++) {
+                    queue.push(0);
+                    while (queue.length) {
+                        const current = queue.shift();
+                        if (current === i) {
+                            dy[i] += 1;
+                        } else {
+                            for (const step of steps) {
+                                const next = current + step;
+                                if (next <= i) {
+                                    queue.push(next);
+                                    console.log(next);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 나머지 경우의 수는 복잡하게 계산할 거 없이 뒤엣것을 계속 더해나가는 식으로 계산한다
+                function DFS(L) {
+                    if (L > n) return;
+                    else {
+                        dy[L] = dy[L - 2] + dy[L - 1];
+                        DFS(L + 1);
+                    }
+                }
+                DFS(3);
+
+                return dy[n];
+            }
+
+            console.log(solution(7));
+        </script>
+    </body>
+</html>
