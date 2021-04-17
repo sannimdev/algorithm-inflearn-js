@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(board) {
+                // n*n의 격자판이라고 했으니까
+                let answer = 0;
+                const n = board.length;
+                const queue = [];
+
+                const dx = [-1, -1, 0, 1, 1, 1, 0, -1];
+                const dy = [0, 1, 1, 1, 0, -1, -1, -1]; // 대각선까지 탐색
+
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j < n; j++) {
+                        /*📌 미리 체크하고 들어올 것*/
+                        if (board[i][j] === 1) {
+                            board[i][j] = 0;
+                            queue.push([i, j]);
+                            answer++; /*📌 카운트 해주는 위치 조절 잘못...*/
+                            while (queue.length) {
+                                const [y, x] = queue.shift();
+                                /* 
+                                1) 여기서 answer을 하면 아직 if문으로 걸러지지도 않는다.
+                                    - 걸러지지 않았으므로 이미 큐에 들어간 상태에서 이미 탐색된 상태이더라도 +1이 된다.
+                                2) board[ny][nx]===1이더라도
+                                    - 이러면 answer가 1의 개수만큼 카운트된다. (20)
+                                */
+                                for (let k = 0; k < dx.length; k++) {
+                                    const ny = y + dy[k];
+                                    const nx = x + dx[k];
+                                    if (
+                                        nx >= 0 &&
+                                        nx < n &&
+                                        ny >= 0 &&
+                                        ny < n &&
+                                        board[ny][nx] === 1
+                                    ) {
+                                        board[ny][nx] = 0;
+                                        queue.push([ny, nx]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return answer;
+            }
+
+            let arr = [
+                [1, 1, 0, 0, 0, 1, 0],
+                [0, 1, 1, 0, 1, 1, 0],
+                [0, 1, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 1, 1],
+                [1, 1, 0, 1, 1, 0, 0],
+                [1, 0, 0, 0, 1, 0, 0],
+                [1, 0, 1, 0, 1, 0, 0],
+            ];
+
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
