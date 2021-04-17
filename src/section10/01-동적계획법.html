@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer;
+                const dy = Array.from({ length: n + 1 }, () => 0); // 다이내믹 (점화식)
+                const steps = [1, 2];
+                const queue = [];
+
+                // 이건 너비우선탐색으로 올라가는 방법을 센 것.. (근데 이게 취지는 아닌 듯?)
+                // for (let i = 1; i <= n; i++) {
+
+                queue.push(0);
+                while (queue.length) {
+                    const current = queue.shift();
+                    if (current === n) {
+                        dy[n] += 1;
+                    } else {
+                        for (const step of steps) {
+                            const next = current + step;
+                            if (next <= n) {
+                                queue.push(next);
+                            }
+                        }
+                    }
+                }
+                // }
+
+                return dy[n];
+            }
+
+            console.log(solution(7));
+        </script>
+    </body>
+</html>
