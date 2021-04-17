@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer;
+                /*
+                    - 한 번에 한 칸 또는 두 칸씩 건너뛰면서 돌다리를 건널 수 있다.
+                    그런데 자연수 (3~45까지만 주어진다고 했으므로 이점에 유의한다.)
+                        - 돌다리가 3개일 때, 4개일 때 구하기 (BFS)
+                        - 3개일 때 건너는 방법은 3+1까지 도달하는 경우의 수를 구해야 한다.
+                */
+
+                const dy = Array.from({ length: n + 1 }, () => 0);
+
+                const queue = [];
+                const steps = [1, 2];
+
+                for (let i = 3; i <= 4; i++) {
+                    queue.push(0);
+                    const end = i + 1;
+                    while (queue.length) {
+                        const current = queue.shift();
+                        if (current === end) {
+                            dy[i] += 1;
+                        }
+                        for (const step of steps) {
+                            const next = current + step;
+                            if (next <= end) {
+                                queue.push(next);
+                            }
+                        }
+                    }
+                }
+
+                function DFS(L) {
+                    if (L > n) {
+                        return;
+                    } else {
+                        dy[L] = dy[L - 2] + dy[L - 1];
+                        DFS(L + 1);
+                    }
+                }
+                DFS(5);
+
+                return dy[n];
+            }
+
+            console.log(solution(7));
+        </script>
+    </body>
+</html>
