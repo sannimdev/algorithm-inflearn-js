@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(c, arr) {
+                const n = arr.length;
+                let answer = 0;
+                const tmp = [];
+
+                function DFS(L, start, sum) {
+                    if (sum > c) return;
+                    if (L === n) {
+                        answer = Math.max(answer, sum);
+                        return;
+                    } else {
+                        DFS(L + 1, start + 1, sum + arr[L]); // 태운다
+                        DFS(L + 1, start + 1, sum); // 태우지 않는다.
+                    }
+                }
+                DFS(0, 0, 0);
+
+                return answer;
+            }
+
+            // function getSum(arr = []){
+            //     return arr.reduce((result, current)=>result+current, 0));
+            // }
+
+            console.log(solution(259, [81, 58, 42, 33, 61]));
+        </script>
+    </body>
+</html>
