@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer;
+                const dy = Array.from({ length: n + 1 }, () => 0); // 다이내믹 (점화식)
+                const steps = [1, 2];
+                const queue = [];
+
+                for (let i = 1; i <= 2; i++) {
+                    queue.push(0);
+                    while (queue.length) {
+                        const current = queue.shift();
+                        if (current === i) {
+                            dy[i] += 1;
+                        }
+                        for (const step of steps) {
+                            const next = current + step;
+                            if (next <= i) {
+                                queue.push(next);
+                            }
+                        }
+                    }
+                }
+
+                function DFS(v) {
+                    if (v > n) {
+                        return;
+                    } else {
+                        dy[v] = dy[v - 2] + dy[v - 1];
+                        DFS(v + 1);
+                    }
+                }
+                DFS(3);
+
+                return dy;
+            }
+
+            console.log(solution(7));
+        </script>
+    </body>
+</html>
