@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, m) {
+                let answer = [];
+                const tmp = [];
+                const visited = new Map();
+
+                function DFS(v, start) {
+                    if (v === m) {
+                        answer.push(tmp.slice());
+                        return;
+                    } else {
+                        for (let i = start; i <= n; i++) {
+                            if (!visited.get(i)) {
+                                visited.set(i, 1);
+                                tmp[v] = i;
+                                DFS(v + 1, i + 1);
+                                visited.set(i, 0);
+                            }
+                        }
+                    }
+                }
+                DFS(0, 1);
+
+                return answer;
+            }
+
+            console.log(solution(4, 2));
+        </script>
+    </body>
+</html>
