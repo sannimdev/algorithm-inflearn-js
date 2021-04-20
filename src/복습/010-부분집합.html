@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                let answer= [];
+                let ch= Array.from({length: n+1} , ()=>0);
+                function DFS(v){
+                    if(v > n) {
+                        if(ch.filter(n=>n>0).length > 0){
+                            const subset = ch.map((x, idx)=> x===1 ? idx: 0).filter(x=>x>0);
+                            answer.push(subset);
+                        }
+                        return;
+                    } else{
+                        ch[v] = 1;
+                        DFS(v+1);
+                        ch[v] = 0;
+                        DFS(v+1);
+                    }
+                }
+                DFS(1);
+
+                return answer;
+            }
+            
+            console.log(solution(3));
+        </script>
+    </body>
+</html>
