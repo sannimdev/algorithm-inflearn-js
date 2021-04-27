@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                const answer = [];
+
+                const ch = Array.from({ length: n + 1 }, () => 0);
+                const tmp = [];
+                function DFS(L) {
+                    if (L > n) {
+                        answer.push(tmp.slice());
+                    } else {
+                        if (!ch[L]) {
+                            ch[L] = 1;
+                            tmp.push(L);
+                            DFS(L + 1);
+                            tmp.pop();
+                            ch[L] = 0;
+                            DFS(L + 1);
+                        }
+                    }
+                }
+                DFS(1);
+
+                return answer.filter((arr) => arr.length > 0);
+            }
+
+            console.log(solution(3));
+        </script>
+    </body>
+</html>
