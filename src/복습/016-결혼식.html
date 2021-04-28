@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(schedules) {
+                let answer = 0;
+
+                schedules.sort(([a], [b]) => a - b);
+                const timeline = [];
+
+                for (const [a, b] of schedules) {
+                    timeline.push([a, 's']);
+                    timeline.push([b, 'e']);
+                }
+
+                timeline.sort((a, b) => {
+                    let result = a[0] - b[0];
+                    if (result === 0) {
+                        // 문자를 아스키코드로 바꾸기 (s보다 e가 먼저 나와야 하니까 알파벳 오름차순 정렬하기)
+                        a[1].charCodeAt() - b[1].charCodeAt();
+                    }
+                    return result;
+                });
+                console.log(timeline);
+
+                let cnt = 0;
+                for (const line of timeline) {
+                    cnt += line[1] === 's' ? 1 : -1;
+                    answer = Math.max(answer, cnt);
+                }
+
+                return answer;
+            }
+
+            console.log(
+                solution([
+                    [14, 18],
+                    [12, 15],
+                    [15, 20],
+                    [20, 30],
+                    [5, 14],
+                ])
+            );
+        </script>
+    </body>
+</html>
