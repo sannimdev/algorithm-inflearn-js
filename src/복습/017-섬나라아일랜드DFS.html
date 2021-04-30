@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(board) {
+                const n = board.length;
+                let answer = 0; // 몇 개의 섬
+
+                const dx = [0, 1, 1, 1, 0, -1, -1, -1];
+                const dy = [-1, -1, 0, 1, 1, 1, 0, -1];
+                function DFS(x, y) {
+                    for (let k = 0; k < dx.length; k++) {
+                        board[y][x] = 0;
+                        const nextX = x + dx[k];
+                        const nextY = y + dy[k];
+                        if (
+                            nextX >= 0 &&
+                            nextX < n &&
+                            nextY >= 0 &&
+                            nextY < n &&
+                            board[nextY][nextX] === 1
+                        ) {
+                            console.log(nextY, nextX, '일 때 DFS');
+                            DFS(nextX, nextY);
+                        }
+                    }
+                }
+
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j < n; j++) {
+                        if (board[i][j] === 1) {
+                            answer += 1;
+                            DFS(i, j);
+                        }
+                    }
+                }
+
+                console.log(board);
+
+                return answer;
+            }
+            let arr = [
+                [1, 1, 0, 0, 0, 1, 0],
+                [0, 1, 1, 0, 1, 1, 0],
+                [0, 1, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 1, 1],
+                [1, 1, 0, 1, 1, 0, 0],
+                [1, 0, 0, 0, 1, 0, 0],
+                [1, 0, 1, 0, 1, 0, 0],
+            ];
+
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
