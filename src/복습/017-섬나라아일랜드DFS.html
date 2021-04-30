@@ -11,34 +11,30 @@
 
                 const dx = [0, 1, 1, 1, 0, -1, -1, -1];
                 const dy = [-1, -1, 0, 1, 1, 1, 0, -1];
-                let found = false;
                 function DFS(x, y) {
-                    if (board[y][x] === 1) {
+                    for (let k = 0; k < dx.length; k++) {
                         board[y][x] = 0;
-                        found = true;
-                        for (let k = 0; k < dx.length; k++) {
-                            const nextX = x + dx[k];
-                            const nextY = y + dy[k];
-                            if (
-                                nextX >= 0 &&
-                                nextX < n &&
-                                nextY >= 0 &&
-                                nextY < n &&
-                                board[nextY][nextX] === 1
-                            ) {
-                                console.log(nextY, nextX, '일 때 DFS');
-                                DFS(nextX, nextY);
-                            }
+                        const nextX = x + dx[k];
+                        const nextY = y + dy[k];
+                        if (
+                            nextX >= 0 &&
+                            nextX < n &&
+                            nextY >= 0 &&
+                            nextY < n &&
+                            board[nextY][nextX] === 1
+                        ) {
+                            console.log(nextY, nextX, '일 때 DFS');
+                            DFS(nextX, nextY);
                         }
                     }
                 }
 
                 for (let i = 0; i < n; i++) {
                     for (let j = 0; j < n; j++) {
-                        found = false;
-                        DFS(j, i);
-                        found && console.log(j, i, '일 때 found가 true임...');
-                        if (found) answer += 1;
+                        if (board[i][j] === 1) {
+                            answer += 1;
+                            DFS(i, j);
+                        }
                     }
                 }
 
