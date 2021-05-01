@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(board) {
+                const n = board.length;
+                let answer = 0; // 몇 개의 섬
+
+                const dx = [0, 1, 1, 1, 0, -1, -1, -1];
+                const dy = [-1, -1, 0, 1, 1, 1, 0, -1];
+
+                const q = [];
+                for (let i = 0; i < n; i++) {
+                    for (let j = 0; j < n; j++) {
+                        if (board[i][j] === 1) {
+                            board[i][j] = 0;
+                            q.push([j, i]); // x, y
+                            answer += 1;
+                            while (q.length) {
+                                const [x, y] = q.shift();
+                                // 위에서 1만 걸러서 0으로 만들어줬는데 여기서 다시 1을 거르면 걸러질 수 있을까?
+                                // if (board[y][x] === 1) {
+                                board[y][x] = 0;
+                                for (let k = 0; k < dx.length; k++) {
+                                    const [nextX, nextY] = [x + dx[k], y + dy[k]];
+                                    if (
+                                        nextX >= 0 &&
+                                        nextX < n &&
+                                        nextY >= 0 &&
+                                        nextY < n &&
+                                        board[nextY][nextX] === 1
+                                    ) {
+                                        /* 
+                                            대신 여기서 이어진 땅덩어리는 0으로 만들어서 중복으로 집계되지 않도록 한다.
+                                            */
+                                        board[nextY][nextX] = 0;
+                                        q.push([nextX, nextY]);
+                                    }
+                                }
+                                // }
+                            }
+                        }
+                    }
+                }
+
+                console.log(board);
+
+                return answer;
+            }
+            let arr = [
+                [1, 1, 0, 0, 0, 1, 0],
+                [0, 1, 1, 0, 1, 1, 0],
+                [0, 1, 0, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 1, 1],
+                [1, 1, 0, 1, 1, 0, 0],
+                [1, 0, 0, 0, 1, 0, 0],
+                [1, 0, 1, 0, 1, 0, 0],
+            ];
+
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
