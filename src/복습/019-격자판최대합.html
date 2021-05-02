@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(board) {
+                const n = board.length; // N * N 의 격자판
+                let answer;
+
+                //행의 합, 열의 합, 대각선의 합
+                let [rowSum, maxRowSum] = [0, 0];
+                let [colSum, maxColSum] = [0, 0];
+                let [slashSum, maxSlashSum] = [0, 0];
+                let [rSlashSum, maxRSlashSum] = [0, 0];
+                for (let i = 0; i < n; i++) {
+                    rowSum = colSum = 0;
+                    for (let j = 0; j < n; j++) {
+                        rowSum += board[i][j];
+                        colSum += board[j][i];
+                    }
+                    slashSum += board[i][i];
+                    rSlashSum += board[i][n - i - 1];
+                    maxRowSum = Math.max(rowSum, maxRowSum);
+                    maxColSum = Math.max(colSum, maxColSum);
+                    maxSlashSum = Math.max(slashSum, maxSlashSum);
+                    maxRSlashSum = Math.max(rSlashSum, maxRSlashSum);
+                }
+
+                answer = Math.max(maxRowSum, maxColSum, maxSlashSum, maxRSlashSum);
+                return answer;
+            }
+
+            let arr = [
+                [10, 13, 10, 12, 15],
+                [12, 39, 30, 23, 11],
+                [11, 25, 50, 53, 15],
+                [19, 27, 29, 37, 27],
+                [19, 13, 30, 13, 19],
+            ];
+
+            console.log(solution(arr));
+        </script>
+    </body>
+</html>
