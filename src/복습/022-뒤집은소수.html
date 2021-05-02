@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(numbers) {
+                let answer = [];
+
+                // 산술식으로 뒤집기
+                for (let i = 0; i < numbers.length; i++) {
+                    let num = numbers[i];
+                    let r = 0;
+                    while (num) {
+                        const t = num % 10;
+                        // 📌 뒤집기
+                        r = r * 10 + t;
+                        num = parseInt(num / 10);
+                    }
+                    if (isPrime(r)) answer.push(r);
+                }
+                return answer;
+            }
+
+            function isPrime(n) {
+                const max = Math.sqrt(n);
+                if (n === 1) return false; //  📌 1은 소수 아님
+                for (let i = 2; i < max; i++) {
+                    if (n % i === 0) return false; // 소수 아님
+                }
+                return true;
+            }
+
+            console.log(solution([32, 55, 62, 20, 260, 370, 200, 30, 100]));
+        </script>
+    </body>
+</html>
