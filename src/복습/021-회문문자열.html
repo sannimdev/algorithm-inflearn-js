@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str = '') {
+                let answer = 'YES';
+
+                const s = str.toLowerCase();
+                const n = s.length;
+
+                for (let i = 0; i < /*n 👉*/ Math.floor(n / 2); i++) {
+                    if (s[i] !== s[n - i - 1]) return 'NO';
+                }
+
+                return answer;
+            }
+            console.log(solution('gooG'));
+            console.log(solution('다시합창합시다'));
+            console.log(solution('소주사주소'));
+            console.log(solution('안녕하세요'));
+        </script>
+    </body>
+</html>
