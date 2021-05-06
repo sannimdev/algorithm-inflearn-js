@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(s, e) {
+                const map = new Map();
+
+                const q = [s];
+                let dist = new Map();
+                dist.set(s, 0);
+                while (q.length) {
+                    const cur = q.shift();
+                    const links = [cur - 1, cur + 1, cur + 5];
+                    for (const link of links) {
+                        if (link === e) {
+                            return dist.get(cur) + 1;
+                        } else if (link > 0 && !dist.get(link) && link <= 10000) {
+                            // 이미 거쳤던 지점은 가봐야 소용이 없으니까 무언가 체크할 것이 필요하다.
+                            dist.set(link, dist.get(cur) + 1);
+                            q.push(link);
+                        }
+                    }
+                }
+
+                return -1;
+            }
+
+            console.log(solution(5, 14));
+            console.log(solution(8, 3));
+        </script>
+    </body>
+</html>
