@@ -11,24 +11,19 @@
                 let answer = 0;
 
                 let ch = Array.from({ length: n + 1 }, () => 0);
-                let tmp = [];
                 // 부분집합 복습하기 => 바둑이를 태우고자 하는 부분집합 구하기
-                function DFS(L) {
-                    if (L === n) {
-                        console.log(tmp);
+                function DFS(L, sum) {
+                    if (sum > c) return; // 재귀가 뻗지 못하도록 방어하기
+                    // 위 코드가 없으면 미친듯이 폭주함...
+                    if (L === n && sum <= c) {
+                        answer = Math.max(answer, sum);
                         return;
                     } else {
-                        if (ch[L] === 0) {
-                            ch[L] = 1;
-                            tmp.push(dogs[L]);
-                            DFS(L + 1);
-                            ch[L] = 0;
-                            tmp.pop();
-                            DFS(L + 1);
-                        }
+                        DFS(L + 1, sum + dogs[L]);
+                        DFS(L + 1, sum);
                     }
                 }
-                DFS(0);
+                DFS(0, 0);
 
                 return answer;
             }
