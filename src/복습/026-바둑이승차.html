@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // 이 문제도 부분집합이라고 생각하면 된다.
+            function solution(c, dogs) {
+                const n = dogs.length;
+                let answer = 0;
+
+                let ch = Array.from({ length: n + 1 }, () => 0);
+                // 부분집합 복습하기 => 바둑이를 태우고자 하는 부분집합 구하기
+                function DFS(L, sum) {
+                    if (sum > c) return; // 재귀가 뻗지 못하도록 방어하기
+                    // 위 코드가 없으면 미친듯이 폭주함...
+                    if (L === n && sum <= c) {
+                        answer = Math.max(answer, sum);
+                        return;
+                    } else {
+                        DFS(L + 1, sum + dogs[L]);
+                        DFS(L + 1, sum);
+                    }
+                }
+                DFS(0, 0);
+
+                return answer;
+            }
+            console.log(solution(259, [81, 58, 42, 33, 61]));
+        </script>
+    </body>
+</html>
