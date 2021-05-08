@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(str) {
+                let answer;
+
+                const stack = [];
+                const op = '+-*/'.split('');
+                for (const s of str) {
+                    if (op.includes(s)) {
+                        const [b, a] = [stack.pop(), stack.pop()];
+                        let result = 0;
+                        switch (s) {
+                            case '+':
+                                result = a + b;
+                                break;
+                            case '-':
+                                result = a - b;
+                                break;
+                            case '*':
+                                result = a * b;
+                                break;
+                            case '/':
+                                result = a / b;
+                                break;
+                        }
+                        stack.push(result);
+                    } else {
+                        //숫자면 넣기
+                        stack.push(Number(s));
+                    }
+                }
+
+                return stack[0];
+            }
+
+            let str = '352+*9-';
+            console.log(solution(str));
+        </script>
+    </body>
+</html>
