@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, req) {
+                let answer = [];
+
+                for (const page of req) {
+                    const size = answer.length;
+                    const idx = answer.findIndex((p) => p === page);
+                    if (idx >= 0) answer.splice(idx, 1);
+                    answer.unshift(page);
+                    while (answer.length > n) answer.pop();
+                }
+
+                return answer;
+            }
+            let arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
+            console.log(solution(5, arr));
+        </script>
+    </body>
+</html>
