@@ -9,17 +9,11 @@
                 let answer = [];
 
                 for (const page of req) {
-                    if (answer.includes(page)) {
-                        // 이미 존재한다면? 일단 뺀다
-                        answer = answer.filter((p) => p !== page);
-                    }
-
+                    const size = answer.length;
+                    const idx = answer.findIndex((p) => p === page);
+                    if (idx >= 0) answer.splice(idx, 1);
                     answer.unshift(page);
-
-                    if (answer.length > n) {
-                        // 사이즈가 5가 넘어간다면?
-                        answer = answer.slice(0, n);
-                    }
+                    while (answer.length > n) answer.pop();
                 }
 
                 return answer;
