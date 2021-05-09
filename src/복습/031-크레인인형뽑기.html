@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            // 이것도 채점 통과하였음.
+            function solution(board, moves) {
+                //  모두 터뜨려져 사라진 인형의 개수를 반환한다
+                let answer = 0;
+                const n = board.length;
+
+                const stack = [];
+
+                while (moves.length) {
+                    const cur = moves.shift();
+                    // STEP1. 해당 열에서 아이템 집어들기
+                    for (let i = 0; i < n; i++) {
+                        const pick = board[i][cur - 1];
+                        if (pick !== 0) {
+                            board[i][cur - 1] = 0;
+                            stack.push(pick);
+                            break;
+                        }
+                    }
+                    // console.log(stack);
+                    // STEP2. stack에서 같은 아이템이 겹쳤는지 확인하기
+                    const size = stack.length;
+                    if (size >= 2) {
+                        const [pre, post] = [stack[size - 1], stack[size - 2]];
+                        // console.log(pre, post, '를 보자');
+                        if (pre === post) {
+                            stack.pop();
+                            stack.pop();
+                            answer += 2;
+                        }
+                    }
+                }
+
+                return answer;
+            }
+
+            let a = [
+                [0, 0, 0, 0, 0],
+                [0, 0, 1, 0, 3],
+                [0, 2, 5, 0, 1],
+                [4, 2, 4, 4, 2],
+                [3, 5, 1, 3, 1],
+            ];
+            let b = [1, 5, 3, 5, 1, 2, 1, 4];
+            console.log(solution(a, b));
+        </script>
+    </body>
+</html>
