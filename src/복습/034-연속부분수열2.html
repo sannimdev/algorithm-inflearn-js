@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(m, arr) {
+                let answer = [];
+
+                let lt, rt;
+
+                const isValid = (lt, rt) => lt < arr.length && rt < arr.length;
+                const getSum = (arr = []) => arr.reduce((result, current) => result + current, 0);
+                for (let i = 0; i < arr.length; i++) {
+                    // i: 부분집합의 묶음 개수
+                    lt = 0;
+                    rt = lt + i;
+                    while (isValid(lt, rt)) {
+                        const dist = rt - lt + 1; // lt와 rt의 거리
+                        const subset = arr.slice(lt, rt + 1);
+                        const sum = getSum(subset);
+                        if (sum <= m) answer.push(subset);
+                        lt += 1;
+                        rt += 1;
+                    }
+                }
+
+                return answer.length; // 부분수열의 개수
+            }
+
+            let a = [1, 3, 1, 2, 3];
+            console.log(solution(5, a));
+        </script>
+    </body>
+</html>
