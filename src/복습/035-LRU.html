@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n, req) {
+                let answer = [];
+
+                for (const page of req) {
+                    if (answer.includes(page)) {
+                        // 이미 존재한다면? 일단 뺀다
+                        answer = answer.filter((p) => p !== page);
+                    }
+
+                    answer.unshift(page);
+
+                    if (answer.length > n) {
+                        // 사이즈가 5가 넘어간다면?
+                        answer = answer.slice(0, n);
+                    }
+                }
+
+                return answer;
+            }
+            let arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
+            console.log(solution(5, arr));
+        </script>
+    </body>
+</html>
