@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(m, arr) {
+                let answer = -999;
+
+                arr.sort((a, b) => a - b);
+
+                let n = arr.length;
+                let lt = 0;
+                let rt = n - 1;
+
+                while (lt <= rt) {
+                    let mid = Math.floor((rt + lt) / 2);
+                    console.log(mid, '=>', arr[mid]);
+                    if (m === arr[mid]) {
+                        answer = mid;
+                        break;
+                    } else if (m > arr[mid]) lt = mid + 1;
+                    else if (m < arr[mid]) rt = mid - 1;
+                }
+
+                return answer + 1; // index가 아니라 몇 번째인지를 알아야 하므로
+            }
+
+            console.log(solution(32, [23, 87, 65, 12, 57, 32, 99, 81]));
+        </script>
+    </body>
+</html>
