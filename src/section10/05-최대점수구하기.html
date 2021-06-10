@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(m, arr) {
+                const dy = Array.from({ length: m + 1 }, () => 0);
+
+                for (const [ps /*현재점수*/, pt /*소요시간*/] of arr) {
+                    for (let j = m; j >= pt; j--) {
+                        dy[j] = Math.max(dy[j], dy[j - pt] + ps);
+                    }
+                    console.log([ps, pt], dy.slice());
+                }
+
+                return dy[m];
+            }
+
+            let arr = [
+                [10, 5],
+                [25, 12],
+                [15, 8],
+                [6, 3],
+                [7, 4],
+            ];
+            console.log(solution(20, arr));
+        </script>
+    </body>
+</html>
