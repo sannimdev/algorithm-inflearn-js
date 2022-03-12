@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>출력결과</title>
+    </head>
+    <body>
+        <script>
+            function solution(n) {
+                // Write your code here
+
+                /*
+    - 전력은 선수 공격력의 최댓값
+    - 중복된 공격력 선수 추가 못함
+    - 
+*/
+                const factorial = (n) =>
+                    Array.from({ length: n }, (_, idx) => idx + 1).reduce(
+                        (result, current) => result * current,
+                        1
+                    );
+
+                const getPlayer = (n) => {
+                    const numberString = (n + '').split('');
+                    return numberString.reduce((result, current) => result + factorial(current), 0);
+                };
+
+                const getPlayers = (n) => {
+                    const players = [];
+                    let num = n;
+                    while (true) {
+                        const player = getPlayer(num);
+                        if (players.find((p) => p === player)) {
+                            return players;
+                        }
+                        players.push(player);
+                    }
+                };
+
+                return getPlayers(5);
+            }
+
+            console.log(solution(5));
+        </script>
+    </body>
+</html>
