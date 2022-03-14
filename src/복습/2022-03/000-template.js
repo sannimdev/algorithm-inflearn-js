@@ -1,5 +1,5 @@
 function solution(arg) {
-    const answer = 0;
+    let answer = 0;
     return answer;
 }
 
