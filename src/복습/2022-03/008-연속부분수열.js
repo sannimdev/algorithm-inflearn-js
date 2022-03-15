@@ -5,14 +5,16 @@ function solution(n, arr = []) {
     let r = 1;
     const length = arr.length;
 
+    let sum = arr[l];
     while (l < r && r < arr.length) {
-        const sum = arr.slice(l, r + 1).reduce((result, current) => result + current, 0);
+        sum += arr[r];
         if (sum === n) {
             answer += 1;
             r += 1;
         } else if (sum < n) {
             r += 1;
         } else {
+            sum -= arr[l] + arr[r];
             l += 1;
         }
     }
